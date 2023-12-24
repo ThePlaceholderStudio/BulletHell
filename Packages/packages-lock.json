@@ -102,11 +102,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.addressables": {
-      "version": "1.21.18",
+      "version": "1.21.19",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.21.20",
+        "com.unity.scriptablebuildpipeline": "1.21.21",
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
@@ -153,7 +153,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.1.0",
+      "version": "2.2.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -235,7 +235,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.animation.rigging": "1.2.1",
-        "com.unity.timeline": "1.7.5",
+        "com.unity.timeline": "1.7.6",
         "com.unity.cinemachine": "2.9.5",
         "com.unity.formats.fbx": "4.2.1"
       }
@@ -245,7 +245,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.timeline": "1.7.5",
+        "com.unity.timeline": "1.7.6",
         "com.unity.sequences": "2.0.1",
         "com.unity.formats.fbx": "4.2.1",
         "com.unity.formats.alembic": "2.3.2",
@@ -258,8 +258,8 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.ide.visualstudio": "2.0.21",
-        "com.unity.ide.rider": "3.0.25",
+        "com.unity.ide.visualstudio": "2.0.22",
+        "com.unity.ide.rider": "3.0.26",
         "com.unity.ide.vscode": "1.2.5",
         "com.unity.editorcoroutines": "1.0.0",
         "com.unity.performance.profile-analyzer": "1.2.2",
@@ -273,7 +273,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.cinemachine": "2.9.5",
-        "com.unity.timeline": "1.7.5",
+        "com.unity.timeline": "1.7.6",
         "com.unity.visualscripting": "1.9.1"
       }
     },
@@ -282,7 +282,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.probuilder": "5.1.1",
+        "com.unity.probuilder": "5.2.0",
         "com.unity.polybrush": "1.1.5",
         "com.unity.formats.fbx": "4.2.1",
         "com.unity.terrain-tools": "5.0.1"
@@ -310,7 +310,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.25",
+      "version": "3.0.26",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -361,7 +361,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.memoryprofiler": {
-      "version": "1.0.0",
+      "version": "1.1.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -423,7 +423,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.probuilder": {
-      "version": "5.1.1",
+      "version": "5.2.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -466,13 +466,13 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.8.4",
+        "com.unity.burst": "1.8.9",
         "com.unity.render-pipelines.core": "14.0.9",
         "com.unity.shadergraph": "14.0.9"
       }
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.20",
+      "version": "1.21.21",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
