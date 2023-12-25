@@ -1,7 +1,5 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-using System.Collections;
-using Unity.Entities.UniversalDelegates;
 
 public class CharacterController : CharacterAimController, ICharacterController
 {
@@ -91,9 +89,6 @@ public class CharacterController : CharacterAimController, ICharacterController
                 }
             }
         }
-        Debug.Log("default speed: " + _Speed);
-        Debug.Log("boost value: " + character.MoveSpeedBonus.Value);
-        Debug.Log("boosted speed: " + _Speed * character.MoveSpeedBonus.Value);
     }
     private void Dash()
     {

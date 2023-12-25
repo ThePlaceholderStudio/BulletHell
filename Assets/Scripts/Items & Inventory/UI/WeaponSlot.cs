@@ -1,5 +1,3 @@
-using UnityEngine.EventSystems;
-
 public class WeaponSlot : ItemSlot
 {
     public ItemType ItemType;

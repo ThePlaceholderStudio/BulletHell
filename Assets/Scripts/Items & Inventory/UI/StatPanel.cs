@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class StatPanel : MonoBehaviour
 {
     [SerializeField] StatDisplay[] statDisplays;
