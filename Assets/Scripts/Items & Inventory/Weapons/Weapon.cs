@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Weapon : CharacterAimController
+public class Weapon : MonoBehaviour
 {
     private float LaunchVelocity = 10f;
 

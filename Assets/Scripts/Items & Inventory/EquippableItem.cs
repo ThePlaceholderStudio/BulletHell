@@ -91,78 +91,78 @@ public class EquippableItem : Item
         }
         #region ItemStatsFlat
         if (MaxHpBonus != 0)
-            c.MaxHpBonus.AddModifier(new StatModifier(MaxHpBonus, StatModType.Flat, this));
+            c.MaxHp.AddModifier(new StatModifier(MaxHpBonus, StatModType.Flat, this));
 
         if (LifeRegenBonus != 0)
-            c.LifeRegenBonus.AddModifier(new StatModifier(LifeRegenBonus, StatModType.Flat, this));
+            c.LifeRegen.AddModifier(new StatModifier(LifeRegenBonus, StatModType.Flat, this));
 
         if (ArmorBonus != 0)
-            c.ArmorBonus.AddModifier(new StatModifier(ArmorBonus, StatModType.Flat, this));
+            c.Armor.AddModifier(new StatModifier(ArmorBonus, StatModType.Flat, this));
 
         if (DashDurationBonus != 0)
-            c.DashDurationBonus.AddModifier(new StatModifier(DashDurationBonus, StatModType.Flat, this));
+            c.DashDuration.AddModifier(new StatModifier(DashDurationBonus, StatModType.Flat, this));
 
         if (MoveSpeedBonus != 0)
-            c.MoveSpeedBonus.AddModifier(new StatModifier(MoveSpeedBonus, StatModType.Flat, this));
+            c.MoveSpeed.AddModifier(new StatModifier(MoveSpeedBonus, StatModType.Flat, this));
 
         if (DamageBonus != 0)
-            c.DamageBonus.AddModifier(new StatModifier(DamageBonus, StatModType.Flat, this));
+            c.Damage.AddModifier(new StatModifier(DamageBonus, StatModType.Flat, this));
 
         if (FireRateBonus != 0)
-            c.FireRateBonus.AddModifier(new StatModifier(FireRateBonus, StatModType.Flat, this));
+            c.FireRate.AddModifier(new StatModifier(FireRateBonus, StatModType.Flat, this));
 
         if (ReloadSpeedBonus != 0)
-            c.ReloadSpeedBonus.AddModifier(new StatModifier(ReloadSpeedBonus, StatModType.Flat, this));
+            c.ReloadSpeed.AddModifier(new StatModifier(ReloadSpeedBonus, StatModType.Flat, this));
 
         if (CriticalChanceBonus != 0)
-            c.CriticalChanceBonus.AddModifier(new StatModifier(CriticalChanceBonus, StatModType.Flat, this));
+            c.CriticalChance.AddModifier(new StatModifier(CriticalChanceBonus, StatModType.Flat, this));
 
         if (CriticalDamageBonus != 0)
-            c.CriticalDamageBonus.AddModifier(new StatModifier(CriticalDamageBonus, StatModType.Flat, this));
+            c.CriticalDamage.AddModifier(new StatModifier(CriticalDamageBonus, StatModType.Flat, this));
 
         if (PickUpRadiusBonus != 0)
-            c.PickUpRadiusBonus.AddModifier(new StatModifier(PickUpRadiusBonus, StatModType.Flat, this));
+            c.PickUpRadius.AddModifier(new StatModifier(PickUpRadiusBonus, StatModType.Flat, this));
 
         if (XPGainBonus != 0)
-            c.XPGainBonus.AddModifier(new StatModifier(XPGainBonus, StatModType.Flat, this));
+            c.XPGain.AddModifier(new StatModifier(XPGainBonus, StatModType.Flat, this));
         #endregion ItemStatsFlat
 
         #region ItemStatsPercentage
         if (MaxHpPercentBonus != 0)
-            c.MaxHpBonus.AddModifier(new StatModifier(MaxHpPercentBonus, StatModType.PercentMult, this));
+            c.MaxHp.AddModifier(new StatModifier(MaxHpPercentBonus, StatModType.PercentMult, this));
 
         if (LifeRegenPercentBonus != 0)
-            c.LifeRegenBonus.AddModifier(new StatModifier(LifeRegenPercentBonus, StatModType.PercentMult, this));
+            c.LifeRegen.AddModifier(new StatModifier(LifeRegenPercentBonus, StatModType.PercentMult, this));
 
         if (ArmorPercentBonus != 0)
-            c.ArmorBonus.AddModifier(new StatModifier(ArmorPercentBonus, StatModType.PercentMult, this));
+            c.Armor.AddModifier(new StatModifier(ArmorPercentBonus, StatModType.PercentMult, this));
 
         if (DashDurationPercentBonus != 0)
-            c.DashDurationBonus.AddModifier(new StatModifier(DashDurationPercentBonus, StatModType.PercentMult, this));
+            c.DashDuration.AddModifier(new StatModifier(DashDurationPercentBonus, StatModType.PercentMult, this));
 
         if (MoveSpeedPercentBonus != 0)
-            c.MoveSpeedBonus.AddModifier(new StatModifier(MoveSpeedPercentBonus, StatModType.PercentMult, this));
+            c.MoveSpeed.AddModifier(new StatModifier(MoveSpeedPercentBonus, StatModType.PercentMult, this));
 
         if (DamagePercentBonus != 0)
-            c.DamageBonus.AddModifier(new StatModifier(DamagePercentBonus, StatModType.PercentMult, this));
+            c.Damage.AddModifier(new StatModifier(DamagePercentBonus, StatModType.PercentMult, this));
 
         if (FireRatePercentBonus != 0)
-            c.FireRateBonus.AddModifier(new StatModifier(FireRatePercentBonus, StatModType.PercentMult, this));
+            c.FireRate.AddModifier(new StatModifier(FireRatePercentBonus, StatModType.PercentMult, this));
 
         if (ReloadSpeedPercentBonus != 0)
-            c.ReloadSpeedBonus.AddModifier(new StatModifier(ReloadSpeedPercentBonus, StatModType.PercentMult, this));
+            c.ReloadSpeed.AddModifier(new StatModifier(ReloadSpeedPercentBonus, StatModType.PercentMult, this));
 
         if (CriticalChancePercentBonus != 0)
-            c.CriticalChanceBonus.AddModifier(new StatModifier(CriticalChancePercentBonus, StatModType.PercentMult, this));
+            c.CriticalChance.AddModifier(new StatModifier(CriticalChancePercentBonus, StatModType.PercentMult, this));
 
         if (CriticalDamagePercentBonus != 0)
-            c.CriticalDamageBonus.AddModifier(new StatModifier(CriticalDamagePercentBonus, StatModType.PercentMult, this));
+            c.CriticalDamage.AddModifier(new StatModifier(CriticalDamagePercentBonus, StatModType.PercentMult, this));
 
         if (PickUpRadiusPercentBonus != 0)
-            c.PickUpRadiusBonus.AddModifier(new StatModifier(PickUpRadiusPercentBonus, StatModType.PercentMult, this));
+            c.PickUpRadius.AddModifier(new StatModifier(PickUpRadiusPercentBonus, StatModType.PercentMult, this));
 
         if (XPGainPercentBonus != 0)
-            c.XPGainBonus.AddModifier(new StatModifier(XPGainPercentBonus, StatModType.PercentMult, this));
+            c.XPGain.AddModifier(new StatModifier(XPGainPercentBonus, StatModType.PercentMult, this));
         #endregion ItemStatsPercentage
 
         #region WeaponStats
@@ -191,17 +191,17 @@ public class EquippableItem : Item
 
     public void Unequip(Character c)
     {
-        c.MaxHpBonus.RemoveAllModifiersFromSource(this);
-        c.LifeRegenBonus.RemoveAllModifiersFromSource(this);
-        c.ArmorBonus.RemoveAllModifiersFromSource(this);
-        c.DashDurationBonus.RemoveAllModifiersFromSource(this);
-        c.MoveSpeedBonus.RemoveAllModifiersFromSource(this);
-        c.DamageBonus.RemoveAllModifiersFromSource(this);
-        c.FireRateBonus.RemoveAllModifiersFromSource(this);
-        c.ReloadSpeedBonus.RemoveAllModifiersFromSource(this);
-        c.CriticalChanceBonus.RemoveAllModifiersFromSource(this);
-        c.CriticalDamageBonus.RemoveAllModifiersFromSource(this);
-        c.PickUpRadiusBonus.RemoveAllModifiersFromSource(this);
-        c.XPGainBonus.RemoveAllModifiersFromSource(this);
+        c.MaxHp.RemoveAllModifiersFromSource(this);
+        c.LifeRegen.RemoveAllModifiersFromSource(this);
+        c.Armor.RemoveAllModifiersFromSource(this);
+        c.DashDuration.RemoveAllModifiersFromSource(this);
+        c.MoveSpeed.RemoveAllModifiersFromSource(this);
+        c.Damage.RemoveAllModifiersFromSource(this);
+        c.FireRate.RemoveAllModifiersFromSource(this);
+        c.ReloadSpeed.RemoveAllModifiersFromSource(this);
+        c.CriticalChance.RemoveAllModifiersFromSource(this);
+        c.CriticalDamage.RemoveAllModifiersFromSource(this);
+        c.PickUpRadius.RemoveAllModifiersFromSource(this);
+        c.XPGain.RemoveAllModifiersFromSource(this);
     }
 }

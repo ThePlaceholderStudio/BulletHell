@@ -13,19 +13,20 @@ public class Character : MonoBehaviour
     private WeaponSystem weaponSystem; // Reference to the WeaponSystem
     private int equippedSlotIndex; // The index of the equipped slot
 
-    public CharacterStat MaxHpBonus;
-    public CharacterStat LifeRegenBonus;
-    public CharacterStat ArmorBonus;
-    public CharacterStat DashDurationBonus;
-    public CharacterStat MoveSpeedBonus;
-    public CharacterStat DamageBonus;
-    public CharacterStat FireRateBonus;
-    public CharacterStat ReloadSpeedBonus;
-    public CharacterStat CriticalChanceBonus;
-    public CharacterStat CriticalDamageBonus;
-    public CharacterStat PickUpRadiusBonus;
-    public CharacterStat XPGainBonus;
+    public CharacterStat MaxHp;
+    public CharacterStat LifeRegen;
+    public CharacterStat Armor;
+    public CharacterStat DashDuration;
+    public CharacterStat MoveSpeed;
+    public CharacterStat Damage;
+    public CharacterStat FireRate;
+    public CharacterStat ReloadSpeed;
+    public CharacterStat CriticalChance;
+    public CharacterStat CriticalDamage;
+    public CharacterStat PickUpRadius;
+    public CharacterStat XPGain;
 
+    //ToDo Weapon Class
     public CharacterStat Range;
     public CharacterStat ReloadTime;
     public CharacterStat MagazineSize;
@@ -41,7 +42,7 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        statPanel.SetStats(MaxHpBonus, LifeRegenBonus, ArmorBonus, DashDurationBonus, MoveSpeedBonus, DamageBonus, FireRateBonus, ReloadSpeedBonus, CriticalChanceBonus, CriticalDamageBonus, PickUpRadiusBonus, XPGainBonus);
+        statPanel.SetStats(MaxHp, LifeRegen, Armor, DashDuration, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
         statPanel.UpdateStatValues();
 
         inventory.OnItemEquipEvent += EquipFromInventory;

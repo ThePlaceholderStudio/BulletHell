@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
     public float maxHealth = 100;
     public float currentHealth;
+
+    public static event Action OnPlayerDeath;
 
     void Start()
     {
@@ -16,7 +19,7 @@ public class HealthComponent : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            //ToDo Death Screen
+            OnPlayerDeath?.Invoke();
             Die();
         }
     }

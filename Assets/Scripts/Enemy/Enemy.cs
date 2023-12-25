@@ -3,20 +3,31 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
 {
-    public int experienceAmount = 100;
+    public float maxHealth = 100;
+    public float currentHealth;
+
+    public int ExperienceAmount = 100;
+    public float EnemyDamage = 10;
+
     public GameObject pfXP;
+
+    void OnCollisionEnter(Collision collision)
+    {
+        var player = collision.gameObject.GetComponent<Character>();
+        if (player != null)
+        {
+            player.GetComponent<HealthComponent>().TakeDamage(EnemyDamage);
+        }
+    }
 
     public void TakeDamage(float damageAmount)
     {
-        HealthComponent health = GetComponent<HealthComponent>();
-        health.TakeDamage(damageAmount);
+        currentHealth -= damageAmount;
 
-        health.currentHealth -= damageAmount;
-
-        if (health.currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             HandleEnemyDeath();
-            health.Die();
+            Die();
         }
     }
 
@@ -27,7 +38,12 @@ public class Enemy : MonoBehaviour
         var xpCollectible = xp.GetComponent<Experience>();
         if (xpCollectible != null)
         {
-            xpCollectible.Amount = experienceAmount;
+            xpCollectible.Amount = ExperienceAmount;
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

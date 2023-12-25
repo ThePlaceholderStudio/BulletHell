@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseControl : MonoBehaviour
 {
     [SerializeField] GameObject menu;
     [SerializeField] GameObject traitsPanel;
+    [SerializeField] GameObject gameSummary;
 
     float previousTimeScale = 1;
     public static bool isPaused;
@@ -21,29 +23,40 @@ public class PauseControl : MonoBehaviour
 
     private void OnEnable()
     {
-        Character.OnLevelUp += TogglePause;
         Character.OnLevelUp += ToggleTraitsPanel;
-        Character.OnEquip += TogglePause;
         Character.OnEquip += ToggleTraitsPanel;
+        HealthComponent.OnPlayerDeath += ToggleGameSummary;
     }
 
     private void OnDisable()
     {
-        Character.OnLevelUp -= TogglePause;
         Character.OnLevelUp -= ToggleTraitsPanel;
-        Character.OnEquip -= TogglePause;
         Character.OnEquip -= ToggleTraitsPanel;
+        HealthComponent.OnPlayerDeath -= ToggleGameSummary;
     }
 
     private void ToggleTraitsPanel()
     {
+        TogglePause();
         traitsPanel.SetActive(isPaused);
+    }
+
+    private void ToggleGameSummary()
+    {
+        TogglePause();
+        gameSummary.SetActive(isPaused);
     }
 
     public void ResumeGame()
     {
         TogglePause();
         menu.SetActive(isPaused);
+    }
+
+    public void OnRetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        TogglePause();
     }
 
     public void TogglePause()

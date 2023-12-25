@@ -118,7 +118,6 @@ public class CharacterController : CharacterAimController, ICharacterController
         Invoke(nameof(DelayedDashForce), 0.025f);
 
         rb.drag = 0;
-        _Speed = dashSpeed;
         Invoke(nameof(ResetDash), dashDuration);
     }
 
@@ -155,19 +154,16 @@ public class CharacterController : CharacterAimController, ICharacterController
     private void MovePlayer()
     {
         Movement = new(_Move.x, 0f, _Move.y);
-        _Speed *= character.MoveSpeedBonus.Value;
-
         if (Movement != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Movement), 0.15f);
         }
-        transform.Translate(_Speed * Time.deltaTime * Movement , Space.World);
+        transform.Translate(character.MoveSpeed.Value * Time.deltaTime * Movement , Space.World);
     }
 
     public void MovePlayerWithAim()
     {
         Movement = new(_Move.x, 0f, _Move.y);
-
         if (_IsPc)
         {
             if (GetAimDirection(_IsPc) != Vector3.zero)
@@ -182,6 +178,6 @@ public class CharacterController : CharacterAimController, ICharacterController
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(GetAimDirection(_IsPc)), 0.15f);
             }
         }
-        transform.Translate(_Speed * Time.deltaTime * Movement, Space.World);
+        transform.Translate(character.MoveSpeed.Value * Time.deltaTime * Movement, Space.World);
     }
 }
