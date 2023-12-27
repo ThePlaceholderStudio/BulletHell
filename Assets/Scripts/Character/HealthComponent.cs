@@ -3,10 +3,18 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    public float maxHealth = 100;
     public float currentHealth;
+    public float maxHealth;
 
     public static event Action OnPlayerDeath;
+
+    Character character;
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+        maxHealth = character.MaxHp.Value;
+    }
 
     void Start()
     {

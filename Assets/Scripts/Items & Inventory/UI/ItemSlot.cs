@@ -52,7 +52,8 @@ public class ItemSlot : MonoBehaviour
                 AddStatText(item.MaxHpBonus, " MaxHp");
                 AddStatText(item.LifeRegenBonus, " Life Regen");
                 AddStatText(item.ArmorBonus, " Armor");
-                AddStatText(item.DashDurationBonus, " Dash Duration");
+                AddStatText(item.DashCoolDownBonus, " Dash Cool-Down");
+                AddStatText(item.DashRangeBonus, " Dash Range");
                 AddStatText(item.MoveSpeedBonus, " Move Speed");
                 AddStatText(item.DamageBonus, " Damage");
                 AddStatText(item.FireRateBonus, " Fire Rate");

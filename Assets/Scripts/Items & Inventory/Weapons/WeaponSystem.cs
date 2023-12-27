@@ -36,20 +36,4 @@ public class WeaponSystem : MonoBehaviour
         // Activate the one weapon that we want
         Weapons[index].SetActive(true);
     }
-
-    public void NextWeapon()
-    {
-        WeaponIndex++;
-        if (WeaponIndex > Weapons.Length - 1)
-            WeaponIndex = 0;
-        SetActiveWeapon(WeaponIndex);
-    }
-
-    public void PreviousWeapon()
-    {
-        WeaponIndex--;
-        if (WeaponIndex < 0)
-            WeaponIndex = Weapons.Length - 1;
-        SetActiveWeapon(WeaponIndex);
-    }
 }

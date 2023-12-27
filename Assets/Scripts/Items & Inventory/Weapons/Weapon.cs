@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private float LaunchVelocity = 10f;
-
-    private float RoundsPerMinute;
+    private float roundsPerMinute;
     [SerializeField] private Transform pfProjectile;
     [SerializeField] private EquippableItem weapon;
     [SerializeField]private WeaponType weaponType;
@@ -18,6 +16,7 @@ public class Weapon : MonoBehaviour
 
     private const float radius = 1f;
 
+    private int muzzleVelocity;
     private float reloadTime; // Reload time in seconds
     private int magazineSize; 
     private int currentAmmo; 
@@ -29,7 +28,8 @@ public class Weapon : MonoBehaviour
     {
         if (!PauseControl.isPaused)
         {
-            RoundsPerMinute = weapon.RPM;
+            muzzleVelocity = weapon.MuzzleVelocity;
+            roundsPerMinute = weapon.RPM;
             numberOfProjectiles = weapon.ProjectileCount;
             conicalAngle = weapon.ConicalAngle;
             reloadTime = weapon.ReloadTime;
@@ -40,20 +40,17 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         fireTimer += Time.deltaTime;
-        if (fireTimer >= 60f / RoundsPerMinute)
+        if (fireTimer >= 60f / roundsPerMinute)
         {
             switch (weaponType)
             {
                 case WeaponType.Pistol:
-                    // Fire logic for Pistol
                     StartCoroutine(LockProjectile());
                     break;
                 case WeaponType.Shotgun:
-                    // Fire logic for Shotgun
                     StartCoroutine(SpawnCircularProjectile());
                     break;
                 case WeaponType.Rifle:
-                    // Fire logic for Rifle
                     StartCoroutine(SpawnProjectile());
                     break;
             }
@@ -101,7 +98,7 @@ public class Weapon : MonoBehaviour
 
                 if (projectile != null)
                 {
-                    projectile.ProjectilePhysics(directionToEnemy);
+                    projectile.ProjectilePhysics(directionToEnemy, muzzleVelocity);
                 }
                 else
                 {
@@ -140,7 +137,6 @@ public class Weapon : MonoBehaviour
         return nearestEnemy;
     }
 
-
     private IEnumerator SpawnProjectile()
     {
         if (isReloading)
@@ -163,7 +159,7 @@ public class Weapon : MonoBehaviour
 
             if (projectile != null)
             {
-                projectile.ProjectilePhysics(transform.forward);
+                projectile.ProjectilePhysics(transform.forward, muzzleVelocity);
             }
             else
             {
@@ -206,7 +202,7 @@ public class Weapon : MonoBehaviour
             // Rotate the vector by the player's rotation.
             projectileVector = transform.rotation * projectileVector;
 
-            Vector3 projectileMoveDirection = (projectileVector - startPoint).normalized * LaunchVelocity;
+            Vector3 projectileMoveDirection = (projectileVector - startPoint).normalized;
 
             // Create game objects.
             if (pfProjectile != null)
@@ -216,7 +212,7 @@ public class Weapon : MonoBehaviour
 
                 if (projectile != null)
                 {
-                    projectile.ProjectilePhysics(projectileMoveDirection);
+                    projectile.ProjectilePhysics(projectileMoveDirection, muzzleVelocity);
                     Destroy(projectile.gameObject, 10F);
                 }
                 else

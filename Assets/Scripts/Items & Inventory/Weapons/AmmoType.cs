@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int Velocity = 10;
     public int LifeSpan = 10;
-    public int Damage = 5;
+    public int ImpactDamage = 5;
 
-    public void ProjectilePhysics(Vector3 shootDir)
+    Character character;
+
+    private void Start()
+    {
+        character = FindObjectOfType<Character>();
+    }
+
+    public void ProjectilePhysics(Vector3 shootDir, int velocity)
     {
         Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(shootDir * Velocity, ForceMode.VelocityChange);
+        rigidbody.AddForce(shootDir * velocity, ForceMode.VelocityChange);
 
         transform.eulerAngles = shootDir;
         Destroy(gameObject, LifeSpan);
@@ -19,8 +25,31 @@ public class Projectile : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(Damage);
+            enemy.TakeDamage(CalculateDamage());
             Destroy(gameObject);
         }
+    }
+
+    private float CalculateDamage()
+    {
+        float baseDamage = character.Damage.Value * ImpactDamage;
+        float damageToDeal = baseDamage * CalculateCrit();
+
+        if (CalculateCrit() > 1) 
+        {
+            Debug.Log("Crit: " + CalculateCrit());
+        }
+
+        Debug.Log("Damage dealt: " + damageToDeal);
+        return damageToDeal;
+    }
+
+    private float CalculateCrit()
+    {
+        if (Random.value <= character.CriticalChance.Value)
+        {
+            return 1 + character.CriticalDamage.Value;
+        }
+        return 1;
     }
 }

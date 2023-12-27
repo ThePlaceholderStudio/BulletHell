@@ -3,7 +3,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth = 100;
     public float currentHealth;
 
     public int ExperienceAmount = 100;

@@ -10,13 +10,14 @@ public class Character : MonoBehaviour
     public delegate void EquipEvent();
     public static event EquipEvent OnEquip;
 
-    private WeaponSystem weaponSystem; // Reference to the WeaponSystem
-    private int equippedSlotIndex; // The index of the equipped slot
+    private WeaponSystem weaponSystem; 
+    private int equippedSlotIndex; 
 
     public CharacterStat MaxHp;
     public CharacterStat LifeRegen;
     public CharacterStat Armor;
-    public CharacterStat DashDuration;
+    public CharacterStat DashCoolDown;
+    public CharacterStat DashRange;
     public CharacterStat MoveSpeed;
     public CharacterStat Damage;
     public CharacterStat FireRate;
@@ -42,7 +43,7 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        statPanel.SetStats(MaxHp, LifeRegen, Armor, DashDuration, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
+        statPanel.SetStats(MaxHp, LifeRegen, Armor, DashCoolDown, DashRange, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
         statPanel.UpdateStatValues();
 
         inventory.OnItemEquipEvent += EquipFromInventory;

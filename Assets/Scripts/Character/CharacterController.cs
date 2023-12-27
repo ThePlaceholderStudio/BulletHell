@@ -10,8 +10,6 @@ public class CharacterController : CharacterAimController, ICharacterController
 
     RaycastHit hit;
 
-    public float groundDrag;
-
     Rigidbody rb;
 
     Character character;
@@ -21,13 +19,8 @@ public class CharacterController : CharacterAimController, ICharacterController
     public Transform playerCam;
     [SerializeField] bool canDash = true;
     [SerializeField] bool isDashing;
-    [SerializeField] float dashSpeed;
-    [SerializeField] float dashForce;
     [SerializeField] float dashDuration;
-    [SerializeField] float dashCd;
     [SerializeField] float dashCdTimer;
-
-    public bool allowAllDirections = true;
 
     public bool resetVel = true;
 
@@ -93,7 +86,7 @@ public class CharacterController : CharacterAimController, ICharacterController
     private void Dash()
     {
         if (dashCdTimer > 0) return;
-        else dashCdTimer = dashCd;
+        else dashCdTimer = character.DashCoolDown.Value;
 
         isDashing = true;
 
@@ -112,7 +105,7 @@ public class CharacterController : CharacterAimController, ICharacterController
 
         Vector3 direction = GetDirection(forwardT);
 
-        Vector3 forceToApply = direction * dashForce;
+        Vector3 forceToApply = direction * character.DashRange.Value;
 
         delayedForceToApply = forceToApply;
         Invoke(nameof(DelayedDashForce), 0.025f);
@@ -131,24 +124,6 @@ public class CharacterController : CharacterAimController, ICharacterController
     private void ResetDash()
     {
         isDashing = false;
-    }
-
-    private Vector3 GetDirection(Transform forwardT)
-    {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3();
-
-        if (allowAllDirections)
-            direction = forwardT.forward * verticalInput + forwardT.right * horizontalInput;
-        else
-            direction = forwardT.forward;
-
-        if (verticalInput == 0 && horizontalInput == 0)
-            direction = forwardT.forward;
-
-        return direction.normalized;
     }
 
     private void MovePlayer()

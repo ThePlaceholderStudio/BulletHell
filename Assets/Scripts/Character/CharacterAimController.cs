@@ -4,6 +4,7 @@ public abstract class CharacterAimController : MonoBehaviour
 {
     protected Vector3 _RotationTarget;
     protected Vector2 _Move, _MouseLook, _JoystickLook;
+    protected bool allowAllDirections = true;
 
     public RaycastHit GetRaycastHitFromMouseLook()
     {
@@ -35,6 +36,24 @@ public abstract class CharacterAimController : MonoBehaviour
         }
 
         return new Vector3(_JoystickLook.x, 0f, _JoystickLook.y);
+    }
+
+    public Vector3 GetDirection(Transform forwardT)
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = new Vector3();
+
+        if (allowAllDirections)
+            direction = forwardT.forward * verticalInput + forwardT.right * horizontalInput;
+        else
+            direction = forwardT.forward;
+
+        if (verticalInput == 0 && horizontalInput == 0)
+            direction = forwardT.forward;
+
+        return direction.normalized;
     }
 }
 

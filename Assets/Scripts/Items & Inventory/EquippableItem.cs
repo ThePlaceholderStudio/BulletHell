@@ -30,13 +30,13 @@ public enum Rarity
 [CreateAssetMenu]
 public class EquippableItem : Item
 {
-    // Declare the new event
     public event Action<EquippableItem> OnItemEquippedEvent;
 
     public int MaxHpBonus;
     public int LifeRegenBonus;
     public int ArmorBonus;
-    public int DashDurationBonus;
+    public int DashCoolDownBonus;
+    public int DashRangeBonus;
     public int MoveSpeedBonus;
     public int DamageBonus;
     public int FireRateBonus;
@@ -50,6 +50,7 @@ public class EquippableItem : Item
     public float LifeRegenPercentBonus;
     public float ArmorPercentBonus;
     public float DashDurationPercentBonus;
+    public float DashRangePercentBonus;
     public float MoveSpeedPercentBonus;
     public float DamagePercentBonus;
     public float FireRatePercentBonus;
@@ -65,6 +66,7 @@ public class EquippableItem : Item
     [Header("Weapon Specs")]
     public WeaponType WeaponType;
     public int Range;
+    public int MuzzleVelocity;
     public int ReloadTime;
     public int MagazineSize;
     public int RPM;
@@ -84,7 +86,6 @@ public class EquippableItem : Item
 
     public void Equip(Character c)
     {
-        // Invoke the event when the item is equipped
         if (ItemType == ItemType.Weapon)
         {
             OnItemEquippedEvent?.Invoke(this);
@@ -99,8 +100,11 @@ public class EquippableItem : Item
         if (ArmorBonus != 0)
             c.Armor.AddModifier(new StatModifier(ArmorBonus, StatModType.Flat, this));
 
-        if (DashDurationBonus != 0)
-            c.DashDuration.AddModifier(new StatModifier(DashDurationBonus, StatModType.Flat, this));
+        if (DashCoolDownBonus != 0)
+            c.DashCoolDown.AddModifier(new StatModifier(DashCoolDownBonus, StatModType.Flat, this));
+
+        if (DashRangeBonus != 0)
+            c.DashRange.AddModifier(new StatModifier(DashRangeBonus, StatModType.Flat, this));
 
         if (MoveSpeedBonus != 0)
             c.MoveSpeed.AddModifier(new StatModifier(MoveSpeedBonus, StatModType.Flat, this));
@@ -138,7 +142,10 @@ public class EquippableItem : Item
             c.Armor.AddModifier(new StatModifier(ArmorPercentBonus, StatModType.PercentMult, this));
 
         if (DashDurationPercentBonus != 0)
-            c.DashDuration.AddModifier(new StatModifier(DashDurationPercentBonus, StatModType.PercentMult, this));
+            c.DashCoolDown.AddModifier(new StatModifier(DashCoolDownBonus, StatModType.PercentMult, this));
+
+        if (DashRangePercentBonus != 0)
+            c.DashRange.AddModifier(new StatModifier(DashRangePercentBonus, StatModType.PercentMult, this));
 
         if (MoveSpeedPercentBonus != 0)
             c.MoveSpeed.AddModifier(new StatModifier(MoveSpeedPercentBonus, StatModType.PercentMult, this));
@@ -194,7 +201,7 @@ public class EquippableItem : Item
         c.MaxHp.RemoveAllModifiersFromSource(this);
         c.LifeRegen.RemoveAllModifiersFromSource(this);
         c.Armor.RemoveAllModifiersFromSource(this);
-        c.DashDuration.RemoveAllModifiersFromSource(this);
+        c.DashCoolDown.RemoveAllModifiersFromSource(this);
         c.MoveSpeed.RemoveAllModifiersFromSource(this);
         c.Damage.RemoveAllModifiersFromSource(this);
         c.FireRate.RemoveAllModifiersFromSource(this);
