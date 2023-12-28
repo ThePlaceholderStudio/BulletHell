@@ -10,8 +10,16 @@ public enum WeaponType
     None
 }
 
+public enum Utility
+{
+    LifeRegen,
+    Shield,
+    None
+}
+
 public enum ItemType
 {
+    Utility,
     Weapon,
     WeaponUgrade,
     Trait
@@ -32,19 +40,19 @@ public class EquippableItem : Item
 {
     public event Action<EquippableItem> OnItemEquippedEvent;
 
-    public int MaxHpBonus;
-    public int LifeRegenBonus;
-    public int ArmorBonus;
-    public int DashCoolDownBonus;
-    public int DashRangeBonus;
-    public int MoveSpeedBonus;
-    public int DamageBonus;
-    public int FireRateBonus;
-    public int ReloadSpeedBonus;
-    public int CriticalChanceBonus;
-    public int CriticalDamageBonus;
-    public int PickUpRadiusBonus;
-    public int XPGainBonus;
+    public float MaxHpBonus;
+    public float LifeRegenBonus;
+    public float ArmorBonus;
+    public float DashCoolDownBonus;
+    public float DashRangeBonus;
+    public float MoveSpeedBonus;
+    public float DamageBonus;
+    public float FireRateBonus;
+    public float ReloadSpeedBonus;
+    public float CriticalChanceBonus;
+    public float CriticalDamageBonus;
+    public float PickUpRadiusBonus;
+    public float XPGainBonus;
     [Space]
     public float MaxHpPercentBonus;
     public float LifeRegenPercentBonus;
@@ -60,6 +68,7 @@ public class EquippableItem : Item
     public float PickUpRadiusPercentBonus;
     public float XPGainPercentBonus;
     [Space]
+    public Utility Utility;
     public ItemType ItemType;
     public Rarity EquipmentRarity;
     [Space]

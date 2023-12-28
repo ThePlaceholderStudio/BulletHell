@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class WeaponSystem : SystemBase
+public class UtilitySystem : SystemBase
 {
     void Start()
     {
         ItemIndex = StartingItemIndex;
-        SetActiveItem(ItemIndex);
+        //SetActiveItem(ItemIndex);
     }
 }

@@ -10,8 +10,9 @@ public class Character : MonoBehaviour
     public delegate void EquipEvent();
     public static event EquipEvent OnEquip;
 
-    private WeaponSystem weaponSystem; 
-    private int equippedSlotIndex; 
+    public WeaponSystem weaponSystem;
+    public UtilitySystem utilitySystem;
+    private int equippedSlotIndex;
 
     public CharacterStat MaxHp;
     public CharacterStat LifeRegen;
@@ -52,7 +53,8 @@ public class Character : MonoBehaviour
     private void Start()
     {
         // Initialize the WeaponSystem reference
-        weaponSystem = FindObjectOfType<WeaponSystem>();
+        weaponSystem = GetComponent<WeaponSystem>();
+        utilitySystem = GetComponent<UtilitySystem>();
     }
 
     private void EquipFromInventory(Item item)
@@ -63,38 +65,82 @@ public class Character : MonoBehaviour
         }
     }
 
+    //public void Equip(EquippableItem item)
+    //{
+    //    if (inventory.RemoveItem(item) && item.ItemType != ItemType.Weapon)
+    //    {
+    //        if (equipmentPanel.AddItem(item))
+    //        {
+    //            item.Equip(this);
+    //            statPanel.UpdateStatValues();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        weaponPanel.AddItem(item);
+
+    //        // Store the equipped slot index
+    //        equippedSlotIndex = (int)item.WeaponType;
+
+    //        // Subscribe to the OnItemEquippedEvent
+    //        item.OnItemEquippedEvent += ActivateWeapon;
+
+    //        item.Equip(this);
+    //        statPanel.UpdateStatValues();
+    //    }
+
+    //    Debug.Log("equip");
+    //    OnEquip?.Invoke();
+    //}
+
     public void Equip(EquippableItem item)
     {
-        if (inventory.RemoveItem(item) && item.ItemType != ItemType.Weapon)
+        if (inventory.RemoveItem(item))
         {
-            if (equipmentPanel.AddItem(item))
+            switch (item.ItemType)
             {
-                item.Equip(this);
-                statPanel.UpdateStatValues();
+                case ItemType.Weapon:
+                    weaponPanel.AddItem(item);
+                    item.Equip(this);
+                    equippedSlotIndex = (int)item.WeaponType;
+                    item.OnItemEquippedEvent += ActivateWeapon;
+                    statPanel.UpdateStatValues();
+                    break;
+                case ItemType.Utility:
+                    if (equipmentPanel.AddItem(item))
+                    {
+                        equippedSlotIndex = (int)item.Utility;
+                        item.Equip(this);
+                        Debug.Log(equippedSlotIndex);
+                        item.OnItemEquippedEvent += ActivateUtility;
+                        statPanel.UpdateStatValues();
+                    }
+                    break;
+                default:
+                    if (equipmentPanel.AddItem(item))
+                    {
+                        item.Equip(this);
+                        statPanel.UpdateStatValues();
+                    }
+                    break;
             }
+
+            Debug.Log("equip");
+            OnEquip?.Invoke();
         }
-        else
-        {
-            weaponPanel.AddItem(item);
-
-            // Store the equipped slot index
-            equippedSlotIndex = (int)item.WeaponType;
-
-            // Subscribe to the OnItemEquippedEvent
-            item.OnItemEquippedEvent += ActivateWeapon;
-
-            item.Equip(this);
-            statPanel.UpdateStatValues();
-        }
-
-        Debug.Log("equip");
-        OnEquip?.Invoke();
     }
 
     private void ActivateWeapon(EquippableItem item)
     {
         // Activate the weapon in the WeaponSystem
-        weaponSystem.SetActiveWeapon(equippedSlotIndex);
+        weaponSystem.SetActiveItem(equippedSlotIndex);
+
+    }
+
+    private void ActivateUtility(EquippableItem item)
+    {
+        // Activate the weapon in the WeaponSystem
+        utilitySystem.SetActiveItem(equippedSlotIndex);
 
     }
 
@@ -139,4 +185,3 @@ public class Character : MonoBehaviour
         }
     }
 }
-
