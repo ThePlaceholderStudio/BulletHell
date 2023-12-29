@@ -95,10 +95,9 @@ public class EquippableItem : Item
 
     public void Equip(Character c)
     {
-        if (ItemType == ItemType.Weapon)
-        {
-            OnItemEquippedEvent?.Invoke(this);
-        }
+
+        OnItemEquippedEvent?.Invoke(this);
+
         #region ItemStatsFlat
         if (MaxHpBonus != 0)
             c.MaxHp.AddModifier(new StatModifier(MaxHpBonus, StatModType.Flat, this));

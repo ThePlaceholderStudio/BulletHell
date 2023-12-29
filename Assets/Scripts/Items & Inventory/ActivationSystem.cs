@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public class SystemBase : MonoBehaviour
+public class ActivationSystem : MonoBehaviour
 {
     public GameObject[] Items; // The array that holds all the items that the player has
     public int StartingItemIndex = 0; // The item index that the player will start with
     public int ItemIndex; // The current index of the active item
+
+    void Start()
+    {
+        ItemIndex = StartingItemIndex;
+    }
 
     public void SetActiveItem(int index)
     {

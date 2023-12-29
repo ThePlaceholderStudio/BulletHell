@@ -12,6 +12,11 @@ public class PauseControl : MonoBehaviour
 
     public static PauseControl Instance;
 
+    private void Start()
+    {
+        ToggleTraitsPanel();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -35,7 +40,7 @@ public class PauseControl : MonoBehaviour
         HealthComponent.OnPlayerDeath -= ToggleGameSummary;
     }
 
-    private void ToggleTraitsPanel()
+    public void ToggleTraitsPanel()
     {
         TogglePause();
         traitsPanel.SetActive(isPaused);

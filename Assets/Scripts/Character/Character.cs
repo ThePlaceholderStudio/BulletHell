@@ -10,8 +10,8 @@ public class Character : MonoBehaviour
     public delegate void EquipEvent();
     public static event EquipEvent OnEquip;
 
-    public WeaponSystem weaponSystem;
-    public UtilitySystem utilitySystem;
+    public ActivationSystem WeaponSystem;
+    public ActivationSystem UtilitySystem;
     private int equippedSlotIndex;
 
     public CharacterStat MaxHp;
@@ -52,9 +52,8 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        // Initialize the WeaponSystem reference
-        weaponSystem = GetComponent<WeaponSystem>();
-        utilitySystem = GetComponent<UtilitySystem>();
+        WeaponSystem = WeaponSystem.GetComponent<ActivationSystem>();
+        UtilitySystem = UtilitySystem.GetComponent<ActivationSystem>();
     }
 
     private void EquipFromInventory(Item item)
@@ -100,19 +99,17 @@ public class Character : MonoBehaviour
             switch (item.ItemType)
             {
                 case ItemType.Weapon:
-                    weaponPanel.AddItem(item);
-                    item.Equip(this);
                     equippedSlotIndex = (int)item.WeaponType;
                     item.OnItemEquippedEvent += ActivateWeapon;
+                    item.Equip(this);
                     statPanel.UpdateStatValues();
                     break;
                 case ItemType.Utility:
                     if (equipmentPanel.AddItem(item))
                     {
                         equippedSlotIndex = (int)item.Utility;
-                        item.Equip(this);
-                        Debug.Log(equippedSlotIndex);
                         item.OnItemEquippedEvent += ActivateUtility;
+                        item.Equip(this);
                         statPanel.UpdateStatValues();
                     }
                     break;
@@ -124,7 +121,6 @@ public class Character : MonoBehaviour
                     }
                     break;
             }
-
             Debug.Log("equip");
             OnEquip?.Invoke();
         }
@@ -133,14 +129,14 @@ public class Character : MonoBehaviour
     private void ActivateWeapon(EquippableItem item)
     {
         // Activate the weapon in the WeaponSystem
-        weaponSystem.SetActiveItem(equippedSlotIndex);
+        WeaponSystem.SetActiveItem(equippedSlotIndex);
 
     }
 
     private void ActivateUtility(EquippableItem item)
     {
         // Activate the weapon in the WeaponSystem
-        utilitySystem.SetActiveItem(equippedSlotIndex);
+        UtilitySystem.SetActiveItem(equippedSlotIndex);
 
     }
 
