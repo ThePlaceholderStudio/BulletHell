@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     public ActivationSystem UtilitySystem;
     private int equippedSlotIndex;
 
+    public WeaponType WeaponType;
     public EquippableItem DefaultWeapon;
 
     public CharacterStat MaxHp;
@@ -57,6 +58,7 @@ public class Character : MonoBehaviour
         WeaponSystem = WeaponSystem.GetComponent<ActivationSystem>();
         UtilitySystem = UtilitySystem.GetComponent<ActivationSystem>();
 
+        //WeaponSystem.SetActiveItem((int)WeaponType);
         Equip(DefaultWeapon);
     }
 
@@ -103,6 +105,7 @@ public class Character : MonoBehaviour
             switch (item.ItemType)
             {
                 case ItemType.Weapon:
+                    weaponPanel.AddItem(item);
                     equippedSlotIndex = (int)item.WeaponType;
                     item.OnItemEquippedEvent += ActivateWeapon;
                     item.Equip(this);

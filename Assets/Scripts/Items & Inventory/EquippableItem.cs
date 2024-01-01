@@ -95,7 +95,6 @@ public class EquippableItem : Item
 
     public void Equip(Character c)
     {
-
         OnItemEquippedEvent?.Invoke(this);
 
         #region ItemStatsFlat
