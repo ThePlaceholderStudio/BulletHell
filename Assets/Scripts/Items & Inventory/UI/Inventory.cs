@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (character.currentLevel == 0 || character.currentLevel % 5 == 0 && character.currentLevel <= 25)
+        if (character.currentLevel % 5 == 0 && character.currentLevel <= 25)
         {
             AssignWeaponsToSlots();
         }

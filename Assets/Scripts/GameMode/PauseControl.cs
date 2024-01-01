@@ -12,11 +12,6 @@ public class PauseControl : MonoBehaviour
 
     public static PauseControl Instance;
 
-    private void Start()
-    {
-        ToggleTraitsPanel();
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

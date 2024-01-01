@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     public ActivationSystem UtilitySystem;
     private int equippedSlotIndex;
 
+    public EquippableItem DefaultWeapon;
+
     public CharacterStat MaxHp;
     public CharacterStat LifeRegen;
     public CharacterStat Armor;
@@ -54,6 +56,8 @@ public class Character : MonoBehaviour
     {
         WeaponSystem = WeaponSystem.GetComponent<ActivationSystem>();
         UtilitySystem = UtilitySystem.GetComponent<ActivationSystem>();
+
+        Equip(DefaultWeapon);
     }
 
     private void EquipFromInventory(Item item)
