@@ -7,6 +7,11 @@ public class LifeRegen : MonoBehaviour
     public Character character;
     private HealthComponent healthComponent;
 
+    private void Awake()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+    }
+
     void Start()
     {
         healthComponent = character.GetComponent<HealthComponent>();

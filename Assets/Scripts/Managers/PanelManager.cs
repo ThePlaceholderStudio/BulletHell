@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseControl : MonoBehaviour
+public class PanelManager : MonoBehaviour
 {
     [SerializeField] GameObject menu;
     [SerializeField] GameObject traitsPanel;
@@ -10,14 +10,14 @@ public class PauseControl : MonoBehaviour
     float previousTimeScale = 1;
     public static bool isPaused = false;
 
-    public static PauseControl Instance;
+    public static global::PanelManager Instance;
 
-    private PanelManager panelManager;
+    private Panel panelManager;
 
     private void Awake()
     {
         Instance = this;
-        panelManager = new PanelManager();
+        panelManager = new Panel();
     }
 
     void Update()
@@ -85,7 +85,7 @@ public class PauseControl : MonoBehaviour
         }
     }
 
-    public class PanelManager
+    public class Panel
     {
         private HashSet<GameObject> activePanels = new HashSet<GameObject>();
 
