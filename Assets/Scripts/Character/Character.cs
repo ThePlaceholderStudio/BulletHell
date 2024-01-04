@@ -14,7 +14,6 @@ public class Character : MonoBehaviour
     public ActivationSystem UtilitySystem;
     private int equippedSlotIndex;
 
-    public WeaponType WeaponType;
     public EquippableItem DefaultWeapon;
 
     public CharacterStat MaxHp;
@@ -40,25 +39,39 @@ public class Character : MonoBehaviour
     public CharacterStat TargetPenetration;
     public CharacterStat ConicalAngle;
 
-    [SerializeField] Inventory inventory;
-    [SerializeField] EquipmentPanel equipmentPanel;
-    [SerializeField] StatPanel statPanel;
-    [SerializeField] WeaponPanel weaponPanel;
+    private Inventory inventory;
+    private EquipmentPanel equipmentPanel;
+    private StatPanel statPanel;
+    private WeaponPanel weaponPanel;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    inventory = GameManager.Instance.inventory;
+    //    equipmentPanel = GameManager.Instance.equipmentPanel;
+    //    statPanel = GameManager.Instance.statPanel;
+    //    weaponPanel = GameManager.Instance.weaponPanel;
+
+    //    statPanel.SetStats(MaxHp, LifeRegen, Armor, DashCoolDown, DashRange, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
+    //    statPanel.UpdateStatValues();
+
+    //    inventory.OnItemEquipEvent += EquipFromInventory;
+    //}
+
+    private void Start()
     {
+        inventory = GameManager.Instance.inventory;
+        equipmentPanel = GameManager.Instance.equipmentPanel;
+        statPanel = GameManager.Instance.statPanel;
+        weaponPanel = GameManager.Instance.weaponPanel;
+
         statPanel.SetStats(MaxHp, LifeRegen, Armor, DashCoolDown, DashRange, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
         statPanel.UpdateStatValues();
 
         inventory.OnItemEquipEvent += EquipFromInventory;
-    }
 
-    private void Start()
-    {
         WeaponSystem = WeaponSystem.GetComponent<ActivationSystem>();
         UtilitySystem = UtilitySystem.GetComponent<ActivationSystem>();
 
-        //WeaponSystem.SetActiveItem((int)WeaponType);
         Equip(DefaultWeapon);
     }
 
@@ -69,34 +82,6 @@ public class Character : MonoBehaviour
             Equip((EquippableItem)item);
         }
     }
-
-    //public void Equip(EquippableItem item)
-    //{
-    //    if (inventory.RemoveItem(item) && item.ItemType != ItemType.Weapon)
-    //    {
-    //        if (equipmentPanel.AddItem(item))
-    //        {
-    //            item.Equip(this);
-    //            statPanel.UpdateStatValues();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        weaponPanel.AddItem(item);
-
-    //        // Store the equipped slot index
-    //        equippedSlotIndex = (int)item.WeaponType;
-
-    //        // Subscribe to the OnItemEquippedEvent
-    //        item.OnItemEquippedEvent += ActivateWeapon;
-
-    //        item.Equip(this);
-    //        statPanel.UpdateStatValues();
-    //    }
-
-    //    Debug.Log("equip");
-    //    OnEquip?.Invoke();
-    //}
 
     public void Equip(EquippableItem item)
     {

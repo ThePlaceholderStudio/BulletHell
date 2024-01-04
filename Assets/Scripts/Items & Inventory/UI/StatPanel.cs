@@ -1,11 +1,25 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class StatPanel : MonoBehaviour
 {
     [SerializeField] StatDisplay[] statDisplays;
     [SerializeField] string[] statNames;
+    [SerializeField] Text characterLevelText;
+    Character character;
 
     private CharacterStat[] stats;
+
+    private void Start()
+    {
+        UpdateLevelText();
+    }
+
+    private void Update()
+    {
+        UpdateLevelText();
+    }
 
     private void OnValidate()
     {
@@ -44,5 +58,11 @@ public class StatPanel : MonoBehaviour
         {
             statDisplays[i].NameText.text = statNames[i];
         }
+    }
+
+    private void UpdateLevelText()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+        characterLevelText.text = character.currentLevel.ToString();
     }
 }

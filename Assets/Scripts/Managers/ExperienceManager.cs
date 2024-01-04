@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class ExperienceManager : MonoBehaviour
 {   
-    public static ExperienceManager Instance;
+    public static ExperienceManager Instance { get; private set; }
 
     public delegate void ExperienceChangeHandler(int amount);
     public event ExperienceChangeHandler OnExperienceChange;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        Debug.Log("awake exp manager");
+        if (Instance == null)
         {
-            Destroy(this);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Instance = this;
+            Destroy(gameObject);
         }
     }
 

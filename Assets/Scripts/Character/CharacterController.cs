@@ -16,7 +16,7 @@ public class CharacterController : CharacterAimController, ICharacterController
 
     [Header("Dash Variables")]
     public Transform orientation;
-    public Transform playerCam;
+
     [SerializeField] bool canDash = true;
     [SerializeField] bool isDashing;
     [SerializeField] float dashDuration;
@@ -57,7 +57,7 @@ public class CharacterController : CharacterAimController, ICharacterController
 
     private void FixedUpdate()
     {
-        if (!PauseControl.isPaused)
+        if (!PanelManager.isPaused)
         {
             hit = GetRaycastHitFromMouseLook();
 
@@ -96,7 +96,7 @@ public class CharacterController : CharacterAimController, ICharacterController
 
         if (Movement != Vector3.zero)
         {
-            forwardT = playerCam; /// where you're facing (no up or down)
+            forwardT = GameManager.Instance.PlayerCam ; /// where you're facing (no up or down)
         }
         else
         {

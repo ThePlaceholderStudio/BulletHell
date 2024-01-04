@@ -7,6 +7,11 @@ public class CameraComponent : MonoBehaviour
     public Vector3 _Offset = Vector3.zero;
     private Vector3 _Velocity = Vector3.zero;
 
+    private void Start()
+    {
+        _Target = GameManager.Instance.player.transform;
+    }
+
     void FixedUpdate()
     {
         if (_Target != null)

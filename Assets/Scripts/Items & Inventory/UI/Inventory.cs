@@ -12,6 +12,11 @@ public class Inventory : MonoBehaviour
 
     public event Action<Item> OnItemEquipEvent;
 
+    private void Awake()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+    }
+
     private void Start()
     {
         for (int i = 0; i < itemSlots.Length; i++)
