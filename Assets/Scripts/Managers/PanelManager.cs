@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelManager : MonoBehaviour
 {
@@ -51,9 +52,15 @@ public class PanelManager : MonoBehaviour
         TogglePanel(gameSummary);
     }
 
-    public void ResumeGame()
+    public void OnResumeButton()
     {
         TogglePanel(menu);
+    }
+
+    public void OnRetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        TogglePause();
     }
 
     public void TogglePanel(GameObject panel)
