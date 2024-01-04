@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    //public GameObject playerPrefab;
 
     public static PlayerSpawnManager Instance { get; private set; }
 
@@ -16,9 +16,9 @@ public class PlayerSpawnManager : MonoBehaviour
 
     private GameObject PlayerSpawn()
     {
-        //var player = Instantiate(SelectionManager.Instance.PlayerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
+        var player = Instantiate(SelectionManager.Instance.PlayerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
 
-        var player = Instantiate(playerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
+        //var player = Instantiate(playerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
 
         player.transform.parent = GameManager.Instance.SpawnPoint.transform;
 
