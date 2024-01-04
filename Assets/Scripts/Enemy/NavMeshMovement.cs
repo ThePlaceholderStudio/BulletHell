@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,6 @@ public class NavMeshMovement : MonoBehaviour
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        
-        foreach(var go in gameObject.scene.GetRootGameObjects())
-        {
-            if(go.GetComponent<Character>() != null) //Character component should only be added to the player's object. So there will be no confusion
-            {
-                targetPoint = go.gameObject.transform;
-                break;
-            }
-        }
     }
 
     private void Update()
@@ -35,5 +27,10 @@ public class NavMeshMovement : MonoBehaviour
         {
             navMeshAgent.SetDestination(targetPoint.position);
         }
+    }
+
+    internal void SetTarget(Transform target)
+    {
+        targetPoint = target;
     }
 }

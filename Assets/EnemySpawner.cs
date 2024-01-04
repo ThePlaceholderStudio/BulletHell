@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     private float TotalElapsedTime = 0f;
 
     private int Wave = 0;
-    private float ElapsedTimeThisWave = 0f;
+    private float ElapsedTimeThisWave = enemySpawnDistributionTime;
 
     private int WaveRemainingEnemyCount = 0;
     private float WaveEnemySpawnTime = 0f;
@@ -29,17 +29,36 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (var go in gameObject.scene.GetRootGameObjects())
         {
-            
+
             var spawnPoint = go.GetComponent<EnemySpawnPoint>();
             if (spawnPoint != null)
             {
                 _enemySpawnPoints.Add(spawnPoint);
             }
+        }
+    }
 
+    private void TrySetPlayer()
+    {
+        if(_playerCharacter != null)
+        {
+            return;
+        }
+
+        foreach (var go in gameObject.scene.GetRootGameObjects())
+        {
             var characterComponent = go.GetComponent<Character>();
             if (characterComponent != null)
             {
                 _playerCharacter = characterComponent;
+            }
+            else
+            {
+                characterComponent = go.GetComponentInChildren<Character>();
+                if (characterComponent != null)
+                {
+                    _playerCharacter = characterComponent;
+                }
             }
         }
     }
@@ -47,6 +66,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TrySetPlayer();
 
         TotalElapsedTime += Time.deltaTime;
         ElapsedTimeThisWave += Time.deltaTime;
@@ -70,7 +90,7 @@ public class EnemySpawner : MonoBehaviour
         Wave++;
         
         ElapsedTimeThisWave = 0f;
-        WaveRemainingEnemyCount = Wave * _playerCharacter.currentLevel * 15; //Find a better function for enemy counts
+        WaveRemainingEnemyCount = Wave * (_playerCharacter.currentLevel+1) * 5; //Find a better function for enemy counts
 
         WaveEnemySpawnTime = enemySpawnDistributionTime / WaveRemainingEnemyCount;
 
@@ -80,12 +100,12 @@ public class EnemySpawner : MonoBehaviour
     private void TrySpawningEnemy()
     {
         WaveEnemySpawnTimeRemaining -= Time.deltaTime;
-        if (WaveEnemySpawnTimeRemaining <= 0 && WaveRemainingEnemyCount > 0)
+        if (WaveEnemySpawnTimeRemaining <= 0 && WaveRemainingEnemyCount > 0 && _enemySpawnPoints.Count > 0)
         {
             WaveEnemySpawnTimeRemaining = WaveEnemySpawnTime;
             var index = Random.Range(0, _enemySpawnPoints.Count);
             var spawnPoint = _enemySpawnPoints[index];
-            spawnPoint.SpawnEnemy();
+            spawnPoint.SpawnEnemy(_playerCharacter.transform);
             WaveRemainingEnemyCount--;
             Debug.Log($"SpawningEnemy, Will Spawn {WaveRemainingEnemyCount} more");
         }
