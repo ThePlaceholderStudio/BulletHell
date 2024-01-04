@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        if (!PauseControl.isPaused)
+        if (!PanelManager.isPaused)
         {
             muzzleVelocity = weapon.MuzzleVelocity;
             roundsPerMinute = weapon.RPM;

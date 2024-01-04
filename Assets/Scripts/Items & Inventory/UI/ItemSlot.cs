@@ -118,6 +118,6 @@ public class ItemSlot : MonoBehaviour
     {
         if (Item != null && OnButtonClickEvent != null)
             OnButtonClickEvent(Item);
-        PauseControl.Instance.ToggleTraitsPanel(); 
+        PanelManager.Instance.ToggleTraitsPanel(); 
     }
 }

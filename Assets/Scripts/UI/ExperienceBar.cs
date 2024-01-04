@@ -6,7 +6,11 @@ public class ExperienceBar : FillStatusBar
     public TextMeshProUGUI experienceText;
     public Character character;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+    }
+
     void Update()
     {
         UpdateFill(character.currentExperience, character.maxExperience);

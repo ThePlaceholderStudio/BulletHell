@@ -2,7 +2,11 @@ public class HealthBar : FillStatusBar
 {
     public HealthComponent playerHealth;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        playerHealth = GameManager.Instance.player.GetComponent<HealthComponent>();
+    }
+
     void Update()
     {
         UpdateFill(playerHealth.currentHealth, playerHealth.maxHealth);
