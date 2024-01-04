@@ -8,7 +8,6 @@ public class SelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("awake");
         if (Instance == null)
         {
             Instance = this;

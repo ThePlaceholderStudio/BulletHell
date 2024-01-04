@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [System.NonSerialized]
     public GameObject player;
 
+    public ExperienceManager experienceManager;
+
     public Transform PlayerCam;
     public Transform SpawnPoint;
 
@@ -17,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("awake");
         if (Instance == null)
         {
             Instance = this;
@@ -27,5 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        experienceManager = Instantiate(experienceManager);
     }
 }
