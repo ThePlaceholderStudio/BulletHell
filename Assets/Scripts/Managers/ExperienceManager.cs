@@ -5,7 +5,7 @@ public class ExperienceManager : MonoBehaviour
     public static ExperienceManager Instance { get; private set; }
 
     public delegate void ExperienceChangeHandler(int amount);
-    public event ExperienceChangeHandler OnExperienceChange;
+    public event ExperienceChangeHandler OnExperienceChange = (int amount) => { };
 
     private void Awake()
     {
