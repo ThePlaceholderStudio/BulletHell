@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Weapon : MonoBehaviour
 {
     private float roundsPerMinute;
     [SerializeField] private Transform pfProjectile;
     [SerializeField] private EquippableItem weapon;
-    [SerializeField]private WeaponType weaponType;
+    [SerializeField] private WeaponType weaponType;
 
     [Header("Pattern Test")]
     private int numberOfProjectiles;
@@ -24,6 +25,13 @@ public class Weapon : MonoBehaviour
 
     private float fireTimer = 0.0f;
 
+    private Character character;
+
+    private void Awake()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+    }
+
     private void Start()
     {
         if (!PanelManager.isPaused)
@@ -39,8 +47,9 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        roundsPerMinute = weapon.RPM * character.FireRate.Value;
         fireTimer += Time.deltaTime;
-        if (fireTimer >= 60f / roundsPerMinute)
+        if (fireTimer >= 60f / (roundsPerMinute))
         {
             switch (weaponType)
             {

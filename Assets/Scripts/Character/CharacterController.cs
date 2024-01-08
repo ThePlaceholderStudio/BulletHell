@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CharacterController : CharacterAimController, ICharacterController
 {
-    [SerializeField] float _Speed;
     [SerializeField] bool _IsPc;
 
     public Vector3 Movement;
