@@ -120,16 +120,26 @@ public class Character : MonoBehaviour
 
     private void ActivateWeapon(EquippableItem item)
     {
-        // Activate the weapon in the WeaponSystem
-        WeaponSystem.SetActiveItem(equippedSlotIndex);
-
+        if (WeaponSystem != null)
+        {
+            WeaponSystem.SetActiveItem(equippedSlotIndex);
+        }
+        else
+        {
+            Debug.Log("WeaponSystem is null");
+        }
     }
 
     private void ActivateUtility(EquippableItem item)
     {
-        // Activate the weapon in the WeaponSystem
-        UtilitySystem.SetActiveItem(equippedSlotIndex);
-
+        if (UtilitySystem != null)
+        {
+            UtilitySystem.SetActiveItem(equippedSlotIndex);
+        }
+        else
+        {
+            Debug.Log("UtilitySystem is null");
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
