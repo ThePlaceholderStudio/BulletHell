@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+
 
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
@@ -10,14 +10,19 @@ public class Enemy : MonoBehaviour
     public float EnemyDamage = 10;
 
     public GameObject pfXP;
+    private Character character;
+
+    private void Awake()
+    {
+        character = GameManager.Instance.player.GetComponent<Character>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
         var player = collision.gameObject.GetComponent<Character>();
         if (player != null)
-        {
-            player.GetComponent<HealthComponent>().TakeDamage(EnemyDamage);
-        }
+            player.GetComponent<HealthComponent>().TakeDamage(EnemyDamage - character.Armor.Value);
+        Debug.Log($"Damage received : {EnemyDamage - character.Armor.Value}");
     }
 
     public void TakeDamage(float damageAmount)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LifeRegen : MonoBehaviour
 {
-    public Character character;
+    private Character character;
     private HealthComponent healthComponent;
 
     private void Awake()
