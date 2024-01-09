@@ -72,7 +72,7 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         Debug.Log("Reloading...");
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime * character.ReloadTime.Value);
 
         currentAmmo = magazineSize;
         isReloading = false;

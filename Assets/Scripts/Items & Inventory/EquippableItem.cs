@@ -14,6 +14,7 @@ public enum Utility
 {
     LifeRegen,
     Shield,
+    Magnet,
     None
 }
 
@@ -57,7 +58,7 @@ public class EquippableItem : Item
     public float MaxHpPercentBonus;
     public float LifeRegenPercentBonus;
     public float ArmorPercentBonus;
-    public float DashDurationPercentBonus;
+    public float DashCooldownPercentBonus;
     public float DashRangePercentBonus;
     public float MoveSpeedPercentBonus;
     public float DamagePercentBonus;
@@ -148,8 +149,8 @@ public class EquippableItem : Item
         if (ArmorPercentBonus != 0)
             c.Armor.AddModifier(new StatModifier(ArmorPercentBonus, StatModType.PercentMult, this));
 
-        if (DashDurationPercentBonus != 0)
-            c.DashCoolDown.AddModifier(new StatModifier(DashCoolDownBonus, StatModType.PercentMult, this));
+        if (DashCooldownPercentBonus != 0)
+            c.DashCoolDown.AddModifier(new StatModifier(DashCooldownPercentBonus, StatModType.PercentMult, this));
 
         if (DashRangePercentBonus != 0)
             c.DashRange.AddModifier(new StatModifier(DashRangePercentBonus, StatModType.PercentMult, this));
@@ -201,21 +202,5 @@ public class EquippableItem : Item
         if (ConicalAnglePercentBonus != 0)
             c.ConicalAngle.AddModifier(new StatModifier(ConicalAnglePercentBonus, StatModType.PercentMult, this));
         #endregion WeaponStats
-    }
-
-    public void Unequip(Character c)
-    {
-        c.MaxHp.RemoveAllModifiersFromSource(this);
-        c.LifeRegen.RemoveAllModifiersFromSource(this);
-        c.Armor.RemoveAllModifiersFromSource(this);
-        c.DashCoolDown.RemoveAllModifiersFromSource(this);
-        c.MoveSpeed.RemoveAllModifiersFromSource(this);
-        c.Damage.RemoveAllModifiersFromSource(this);
-        c.FireRate.RemoveAllModifiersFromSource(this);
-        c.ReloadSpeed.RemoveAllModifiersFromSource(this);
-        c.CriticalChance.RemoveAllModifiersFromSource(this);
-        c.CriticalDamage.RemoveAllModifiersFromSource(this);
-        c.PickUpRadius.RemoveAllModifiersFromSource(this);
-        c.XPGain.RemoveAllModifiersFromSource(this);
     }
 }

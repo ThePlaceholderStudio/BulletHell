@@ -142,15 +142,6 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        ICollectible collectible = collider.GetComponent<ICollectible>();
-        if (collectible != null)
-        {
-            collectible.Collect();
-        }
-    }
-
     private void OnEnable()
     {
         ExperienceManager.Instance.OnExperienceChange += HandleExperienceChange;
