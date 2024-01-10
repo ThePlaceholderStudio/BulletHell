@@ -59,8 +59,14 @@ public class Weapon : MonoBehaviour
                 case WeaponType.Shotgun:
                     StartCoroutine(SpawnCircularProjectile());
                     break;
-                case WeaponType.Rifle:
+                    case WeaponType.SMG: 
                     StartCoroutine(SpawnProjectile());
+                    break;
+                case WeaponType.AssaultRifle:
+                    StartCoroutine(SpawnProjectile());
+                    break;
+                case WeaponType.SniperRifle: 
+                    StartCoroutine(LockProjectile());
                     break;
             }
             fireTimer = 0f;
@@ -103,7 +109,7 @@ public class Weapon : MonoBehaviour
             if (pfProjectile != null)
             {
                 Transform projectileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
-                Projectile projectile = projectileTransform.GetComponent<Projectile>();
+                AmmoType projectile = projectileTransform.GetComponent<AmmoType>();
 
                 if (projectile != null)
                 {
@@ -164,7 +170,7 @@ public class Weapon : MonoBehaviour
         if (pfProjectile != null)
         {
             Transform projectileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
-            Projectile projectile = projectileTransform.GetComponent<Projectile>();
+            AmmoType projectile = projectileTransform.GetComponent<AmmoType>();
 
             if (projectile != null)
             {
@@ -217,7 +223,7 @@ public class Weapon : MonoBehaviour
             if (pfProjectile != null)
             {
                 Transform projectileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
-                Projectile projectile = projectileTransform.GetComponent<Projectile>();
+                AmmoType projectile = projectileTransform.GetComponent<AmmoType>();
 
                 if (projectile != null)
                 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class AmmoType : MonoBehaviour
 {
     public int LifeSpan = 10;
     public int ImpactDamage = 5;
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private float CalculateDamage()
+    public float CalculateDamage()
     {
         float baseDamage = character.Damage.Value * ImpactDamage;
         float damageToDeal = baseDamage * CalculateCrit();

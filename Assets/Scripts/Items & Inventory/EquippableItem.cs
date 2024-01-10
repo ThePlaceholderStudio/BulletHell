@@ -6,7 +6,8 @@ public enum WeaponType
     Pistol,
     Shotgun,
     SMG,
-    Rifle,
+    AssaultRifle,
+    SniperRifle,
     None
 }
 
