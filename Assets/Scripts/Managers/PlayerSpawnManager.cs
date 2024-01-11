@@ -16,9 +16,16 @@ public class PlayerSpawnManager : MonoBehaviour
 
     private GameObject PlayerSpawn()
     {
-        //var player = Instantiate(SelectionManager.Instance.PlayerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
+        GameObject player = null;
+        if(playerPrefab == null)
+        {
+            player = Instantiate(SelectionManager.Instance.PlayerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            player = Instantiate(playerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
+        }
 
-        var player = Instantiate(playerPrefab, GameManager.Instance.SpawnPoint.transform.position, Quaternion.identity);
 
         player.transform.parent = GameManager.Instance.SpawnPoint.transform;
 

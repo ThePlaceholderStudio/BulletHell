@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
 
     public GameObject pfXP;
 
+    public Action<Enemy> onEnemyKilled;
+
     void OnCollisionEnter(Collision collision)
     {
         var player = collision.gameObject.GetComponent<Character>();
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        onEnemyKilled?.Invoke(this);
         Destroy(gameObject);
     }
 }
