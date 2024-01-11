@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<Item> weapons;
     [SerializeField] Transform itemsParent;
     [SerializeField] ItemSlot[] itemSlots;
-    [SerializeField] Character character;
+    private Character character;
 
     public event Action<Item> OnItemEquipEvent;
 

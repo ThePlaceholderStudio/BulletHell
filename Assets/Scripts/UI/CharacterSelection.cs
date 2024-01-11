@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelection : MonoBehaviour
 {
+    public Transform CharacterContainer;
+
     private List<GameObject> characters;
 
     private int selectionIndex = 0;
@@ -12,7 +14,7 @@ public class CharacterSelection : MonoBehaviour
     private void Start()
     {
         characters = new List<GameObject>();
-        foreach (Transform t in transform)
+        foreach (Transform t in CharacterContainer.transform)
         {
             characters.Add(t.gameObject);
             t.gameObject.SetActive(false);
@@ -57,5 +59,10 @@ public class CharacterSelection : MonoBehaviour
 
         // Set the new scene as the active scene
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
+    }
+
+    public void OnBackButton()
+    {
+        UIManager.Instance.GoBack();
     }
 }

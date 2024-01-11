@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelSelection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnSelectButton(int index)
     {
-        
+        UIManager.Instance.SwitchMenus(UIManager.Instance.characterSelection.gameObject);
+        UIManager.Instance.LevelIndex = index;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnBackButton()
     {
-        
+        UIManager.Instance.GoBack();
     }
 }

@@ -63,6 +63,13 @@ public class PanelManager : MonoBehaviour
         TogglePause();
     }
 
+    public void OnReturnMainMenuButton()
+    {
+        SceneManager.LoadSceneAsync(0);
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+        TogglePause();
+    }
+
     public void TogglePanel(GameObject panel)
     {
         TogglePause();

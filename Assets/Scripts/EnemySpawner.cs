@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void TrySetPlayer()
     {
-        if(_playerCharacter != null)
+        if (_playerCharacter != null)
         {
             return;
         }
@@ -70,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
 
         TotalElapsedTime += Time.deltaTime;
         ElapsedTimeThisWave += Time.deltaTime;
-        if(_enemySpawnPoints.Count <= 0 || _playerCharacter == null)
+        if (_enemySpawnPoints.Count <= 0 || _playerCharacter == null)
         {
             Debug.LogError($"EnemySpawnPoint count : {_enemySpawnPoints.Count} || PlayerCharacter : {_playerCharacter}");
         }
@@ -88,7 +88,7 @@ public class EnemySpawner : MonoBehaviour
     private void StartNewWave()
     {
         Wave++;
-        
+
         ElapsedTimeThisWave = 0f;
         WaveRemainingEnemyCountToSpawn = Wave * (1+((int)Math.Log(_playerCharacter.currentLevel+1, 2))) * 5; //Find a better function for enemy counts
 

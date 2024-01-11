@@ -58,7 +58,8 @@ public class ItemTooltip : MonoBehaviour
         AddStatText(item.MaxHpPercentBonus * 100, "% MaxHp");
         AddStatText(item.LifeRegenPercentBonus * 100, "% Life Regen");
         AddStatText(item.ArmorPercentBonus * 100, "% Armor");
-        AddStatText(item.DashDurationPercentBonus * 100, "% Dash Duration");
+        AddStatText(item.DashCooldownPercentBonus * 100, "% Dash Cool-Down");
+        AddStatText(item.DashRangePercentBonus * 100, "% Dash Range");
         AddStatText(item.MoveSpeedPercentBonus * 100, "% Move Speed");
         AddStatText(item.DamagePercentBonus * 100, "% Damage");
         AddStatText(item.FireRatePercentBonus * 100, "% Fire Rate");
