@@ -8,6 +8,7 @@ public enum WeaponType
     SMG,
     AssaultRifle,
     SniperRifle,
+    RocketLauncher,
     None
 }
 

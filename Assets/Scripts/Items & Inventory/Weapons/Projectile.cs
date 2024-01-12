@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class AmmoType : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public int LifeSpan = 10;
-    public int ImpactDamage = 5;
+    public float ImpactDamage = 5;
 
     Character character;
 
@@ -25,14 +25,14 @@ public class AmmoType : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(CalculateDamage());
+            enemy.TakeDamage(CalculateDamage(ImpactDamage));
             Destroy(gameObject);
         }
     }
 
-    public float CalculateDamage()
+    public float CalculateDamage(float impactDamage)
     {
-        float baseDamage = character.Damage.Value * ImpactDamage;
+        float baseDamage = character.Damage.Value * impactDamage;
         float damageToDeal = baseDamage * CalculateCrit();
 
         if (CalculateCrit() > 1) 
