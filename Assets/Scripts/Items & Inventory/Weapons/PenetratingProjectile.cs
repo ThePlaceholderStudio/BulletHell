@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class PenetratingProjectile : Projectile
 {
     public int PenetrationCount = 3; // Number of enemies the bullet can penetrate
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        if (collider.gameObject.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(CalculateDamage(ImpactDamage));
             PenetrationCount--;
