@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class Weapon : MonoBehaviour
 {
@@ -19,8 +17,8 @@ public class Weapon : MonoBehaviour
 
     private int muzzleVelocity;
     private float reloadTime; // Reload time in seconds
-    private int magazineSize; 
-    private int currentAmmo; 
+    private int magazineSize;
+    private int currentAmmo;
     private bool isReloading = false;
 
     private float fireTimer = 0.0f;
@@ -59,8 +57,17 @@ public class Weapon : MonoBehaviour
                 case WeaponType.Shotgun:
                     StartCoroutine(SpawnCircularProjectile());
                     break;
-                case WeaponType.Rifle:
+                case WeaponType.SMG:
                     StartCoroutine(SpawnProjectile());
+                    break;
+                case WeaponType.AssaultRifle:
+                    StartCoroutine(SpawnProjectile());
+                    break;
+                case WeaponType.SniperRifle:
+                    StartCoroutine(LockProjectile());
+                    break;
+                case WeaponType.RocketLauncher:
+                    StartCoroutine(FireHomingMissile());
                     break;
             }
             fireTimer = 0f;
@@ -144,6 +151,42 @@ public class Weapon : MonoBehaviour
         }
 
         return nearestEnemy;
+    }
+
+    private IEnumerator FireHomingMissile()
+    {
+        if (isReloading)
+            yield break;
+
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.1f); // Add delay before firing
+
+        currentAmmo--;
+
+        if (pfProjectile != null)
+        {
+            Transform missileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
+            HomingMissile homingMissile = missileTransform.GetComponent<HomingMissile>();
+
+            if (homingMissile != null)
+            {
+                homingMissile.SetTarget(FindNearestEnemy().transform.position);
+                homingMissile.ProjectilePhysics((transform.forward).normalized, muzzleVelocity);
+            }
+            else
+            {
+                Debug.LogError("No HomingMissile component attached to the missile prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No missile prefab assigned.");
+        }
     }
 
     private IEnumerator SpawnProjectile()
