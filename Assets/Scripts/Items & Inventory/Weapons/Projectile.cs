@@ -3,10 +3,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public int LifeSpan = 10;
-    public float ImpactDamage = 5;
+    public int ImpactDamage = 5;
 
     Character character;
-
+    public bool IsFiredFromEnemy = false;
     private void Start()
     {
         character = FindObjectOfType<Character>();
@@ -25,14 +25,33 @@ public class Projectile : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(CalculateDamage(ImpactDamage));
+            enemy.TakeDamage(CalculatePlayerDamage());
+            Destroy(gameObject);
+        }
+        else if(IsFiredFromEnemy && collider.gameObject.TryGetComponent(out Character player))
+        {
+            float damage = CalculateEnemyDamage();
+            player.GetComponent<HealthComponent>().TakeDamage(damage);
+            Debug.Log($"Damage received : {damage}");
             Destroy(gameObject);
         }
     }
 
-    public float CalculateDamage(float impactDamage)
+    /// <summary>
+    /// Damage dealt when the projectile belongs to the enemy
+    /// </summary>
+    private float CalculateEnemyDamage()
     {
-        float baseDamage = character.Damage.Value * impactDamage;
+        return Mathf.Clamp(ImpactDamage - character.Armor.Value, 0, ImpactDamage);
+    }
+
+    /// <summary>
+    /// Damage dealt when the projectile belongs to the player
+    /// </summary>
+    /// <returns></returns>
+    private float CalculatePlayerDamage()
+    {
+        float baseDamage = character.Damage.Value * ImpactDamage;
         float damageToDeal = baseDamage * CalculateCrit();
 
         if (CalculateCrit() > 1) 

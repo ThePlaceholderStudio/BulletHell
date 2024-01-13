@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -10,12 +11,18 @@ public class Enemy : MonoBehaviour
     public float EnemyDamage = 10;
 
     public GameObject pfXP;
-    private Character character;
+    protected Character character;
 
     private void Awake()
     {
         character = GameManager.Instance.player.GetComponent<Character>();
+
+        Init();
     }
+
+    protected virtual void Init() { }
+
+    public Action<Enemy> onEnemyKilled;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -49,6 +56,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        onEnemyKilled?.Invoke(this);
         Destroy(gameObject);
     }
 }
