@@ -24,7 +24,7 @@ public class WaveProgress : MonoBehaviour
                 $"\n" +
                 $"RemainingEnemyCount : {EnemySpawner.WaveRemainingEnemyCountToSpawn}" +
                 $"\n" +
-                $"Elapsed Time This Wave : {EnemySpawner.ElapsedTimeThisWave}";
+                $"Elapsed Time This Wave : {EnemySpawner.CurrentWaveInformation.ElapsedTime}";
         }
     }    
 }

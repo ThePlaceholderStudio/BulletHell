@@ -17,6 +17,8 @@ public class FiringEnemy : Enemy
     protected override void Init()
     {
         base.Init();
+        
+        EnemyName = "Firing Minion";
 
         fireTime = 60f / firingRate;
         firingTimeCounter = fireTime;

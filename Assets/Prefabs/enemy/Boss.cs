@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Boss : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Init()
     {
-        
+        base.Init();
+        EnemyName = "Basic Boss";
     }
 
     // Update is called once per frame
