@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private Character _playerCharacter;
 
     private List<Enemy> CurrentWaveEnemies = new List<Enemy>();
+    private List<Boss> CurrentWaveBosses = new List<Boss>();
 
     public float TotalElapsedTime = 0f;
 
@@ -23,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     public int WaveRemainingEnemyCountToSpawn = 0;
     private float WaveEnemySpawnTime = 0f;
     private float WaveEnemySpawnTimeRemaining = 0f;
-
+    public float BossSpawnWaveInterval = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +76,10 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError($"EnemySpawnPoint count : {_enemySpawnPoints.Count} || PlayerCharacter : {_playerCharacter}");
         }
 
-        if(WaveRemainingEnemyCountToSpawn == 0 && CurrentWaveEnemies.Count == 0 && ElapsedTimeThisWave > enemySpawnDistributionTime)
+        if(WaveRemainingEnemyCountToSpawn == 0 && 
+            CurrentWaveEnemies.Count == 0 && 
+            ElapsedTimeThisWave > enemySpawnDistributionTime &&
+            CurrentWaveBosses.Count == 0)
         {
             StartNewWave();
         }
@@ -95,6 +99,23 @@ public class EnemySpawner : MonoBehaviour
         WaveEnemySpawnTime = enemySpawnDistributionTime / WaveRemainingEnemyCountToSpawn;
 
         Debug.Log($"Starting Wave : {Wave} | Enemy Count : {WaveRemainingEnemyCountToSpawn} | Spawn Rate : Every {WaveEnemySpawnTime} seconds");
+
+        if(Wave % BossSpawnWaveInterval == 0) //Every 5 waves, spawn a boss
+        {
+            SpawnBoss();
+        }
+    }
+
+    private void SpawnBoss()
+    {
+        var index = Random.Range(0, _enemySpawnPoints.Count);
+        var spawnPoint = _enemySpawnPoints[index];
+
+        var boss = spawnPoint.SpawnBoss(_playerCharacter.transform);
+        if(boss != null)
+        {
+            CurrentWaveBosses.Add(boss);
+        }
     }
 
     private void TrySpawningEnemy()
@@ -105,19 +126,50 @@ public class EnemySpawner : MonoBehaviour
             WaveEnemySpawnTimeRemaining = WaveEnemySpawnTime;
             var index = Random.Range(0, _enemySpawnPoints.Count);
             var spawnPoint = _enemySpawnPoints[index];
-            var spawnedEnemy = spawnPoint.SpawnEnemy(_playerCharacter.transform);
-            Enemy enemyComponent = spawnedEnemy.GetComponent<Enemy>();
+            var spawnedEnemy = spawnPoint.SpawnBasicEnemy(_playerCharacter.transform);
+            if(spawnedEnemy != null)
+            {
+                Enemy enemyComponent = spawnedEnemy.GetComponent<Enemy>();
 
-            enemyComponent.onEnemyKilled = OnEnemyKilled;
+                enemyComponent.onEnemyKilled = OnEnemyKilled;
 
-            CurrentWaveEnemies.Add(spawnedEnemy);
-            WaveRemainingEnemyCountToSpawn--;
-            Debug.Log($"SpawningEnemy, Will Spawn {WaveRemainingEnemyCountToSpawn} more");
+                CurrentWaveEnemies.Add(spawnedEnemy);
+                WaveRemainingEnemyCountToSpawn--;
+                Debug.Log($"SpawningEnemy, Will Spawn {WaveRemainingEnemyCountToSpawn} more");
+            }
         }
     }
 
     public void OnEnemyKilled(Enemy enemy)
     {
-        CurrentWaveEnemies.Remove(enemy);
+        if(enemy is Boss boss)
+        {
+            CurrentWaveBosses.Remove(boss);
+        }
+        else
+        {
+            CurrentWaveEnemies.Remove(enemy);
+        }
+    }
+
+    public static Enemy SpawnEnemy(Vector3 spawnPoint, GameObject typeToSpawn, Transform target)
+    {
+        if (typeToSpawn == null)
+        {
+            return null;
+        }
+
+        var go = GameObject.Instantiate(typeToSpawn);
+
+        go.transform.position = spawnPoint;
+
+        var enemyComponent = go.GetComponent<Enemy>();
+
+        var movementComponent = go.GetComponent<NavMeshMovement>();
+        if (movementComponent != null)
+        {
+            movementComponent.SetTarget(target);
+        }
+        return enemyComponent;
     }
 }
