@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// Damage dealt when the projectile belongs to the enemy
     /// </summary>
-    private float CalculateEnemyDamage()
+    protected float CalculateEnemyDamage()
     {
         return Mathf.Clamp(ImpactDamage - character.Armor.Value, 0, ImpactDamage);
     }
@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
     /// Damage dealt when the projectile belongs to the player
     /// </summary>
     /// <returns></returns>
-    private float CalculatePlayerDamage()
+    protected float CalculatePlayerDamage()
     {
         float baseDamage = character.Damage.Value * ImpactDamage;
         float damageToDeal = baseDamage * CalculateCrit();
