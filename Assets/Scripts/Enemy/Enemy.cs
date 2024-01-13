@@ -5,6 +5,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
 {
+
+    public string EnemyName { get; set; }
+
     public float currentHealth;
 
     public int ExperienceAmount = 100;
@@ -20,7 +23,10 @@ public class Enemy : MonoBehaviour
         Init();
     }
 
-    protected virtual void Init() { }
+    protected virtual void Init() 
+    {
+        EnemyName = "Minion";
+    }
 
     public Action<Enemy> onEnemyKilled;
 

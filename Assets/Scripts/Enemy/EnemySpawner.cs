@@ -6,6 +6,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
+
 public class EnemySpawner : MonoBehaviour
 {
     const float enemySpawnDistributionTime = 15; //This will be used to adjust enemy spawn rate. The code will spawn all the enemies of a wave in this amount of seconds.
@@ -19,12 +21,17 @@ public class EnemySpawner : MonoBehaviour
     public float TotalElapsedTime = 0f;
 
     public int Wave = 0;
-    public float ElapsedTimeThisWave = enemySpawnDistributionTime;
+    //public float ElapsedTimeThisWave = enemySpawnDistributionTime;
 
     public int WaveRemainingEnemyCountToSpawn = 0;
     private float WaveEnemySpawnTime = 0f;
     private float WaveEnemySpawnTimeRemaining = 0f;
     public float BossSpawnWaveInterval = 1;
+
+    public event Action<WaveInformation> OnWaveEnded = (WaveInformation info) => { };
+    public event Action<Enemy> OnEnemyKilled = (Enemy enemy) => { };
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +44,8 @@ public class EnemySpawner : MonoBehaviour
                 _enemySpawnPoints.Add(spawnPoint);
             }
         }
+
+        CurrentWaveInformation = new WaveInformation();
     }
 
     private void TrySetPlayer()
@@ -70,7 +79,7 @@ public class EnemySpawner : MonoBehaviour
         TrySetPlayer();
 
         TotalElapsedTime += Time.deltaTime;
-        ElapsedTimeThisWave += Time.deltaTime;
+        CurrentWaveInformation.ElapsedTime += Time.deltaTime;
         if (_enemySpawnPoints.Count <= 0 || _playerCharacter == null)
         {
             Debug.LogError($"EnemySpawnPoint count : {_enemySpawnPoints.Count} || PlayerCharacter : {_playerCharacter}");
@@ -78,8 +87,8 @@ public class EnemySpawner : MonoBehaviour
 
         if(WaveRemainingEnemyCountToSpawn == 0 && 
             CurrentWaveEnemies.Count == 0 && 
-            ElapsedTimeThisWave > enemySpawnDistributionTime &&
-            CurrentWaveBosses.Count == 0)
+            CurrentWaveBosses.Count == 0 &&
+            CurrentWaveInformation.ElapsedTime > enemySpawnDistributionTime)
         {
             StartNewWave();
         }
@@ -89,11 +98,33 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private IEnumerator EndWave()
+    {
+        OnWaveEnded?.Invoke(CurrentWaveInformation);
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public WaveInformation CurrentWaveInformation;
+
+    private void SetNewWaveInformation()
+    {
+        Character.OnLevelUp -= CurrentWaveInformation.OnLevelUp;
+        OnEnemyKilled -= CurrentWaveInformation.OnEnemyKilled;
+        CurrentWaveInformation = new WaveInformation();
+        Character.OnLevelUp += CurrentWaveInformation.OnLevelUp;
+        OnEnemyKilled += CurrentWaveInformation.OnEnemyKilled;
+    }
+
     private void StartNewWave()
     {
+
+        StartCoroutine(EndWave());
+        SetNewWaveInformation();
+
         Wave++;
 
-        ElapsedTimeThisWave = 0f;
+        CurrentWaveInformation.ElapsedTime = 0f;
         WaveRemainingEnemyCountToSpawn = Wave * (1+((int)Math.Log(_playerCharacter.currentLevel+1, 2))) * 5; //Find a better function for enemy counts
 
         WaveEnemySpawnTime = enemySpawnDistributionTime / WaveRemainingEnemyCountToSpawn;
@@ -114,6 +145,7 @@ public class EnemySpawner : MonoBehaviour
         var boss = spawnPoint.SpawnBoss(_playerCharacter.transform);
         if(boss != null)
         {
+            boss.onEnemyKilled = OnEnemyDied;
             CurrentWaveBosses.Add(boss);
         }
     }
@@ -131,7 +163,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 Enemy enemyComponent = spawnedEnemy.GetComponent<Enemy>();
 
-                enemyComponent.onEnemyKilled = OnEnemyKilled;
+                enemyComponent.onEnemyKilled = OnEnemyDied;
 
                 CurrentWaveEnemies.Add(spawnedEnemy);
                 WaveRemainingEnemyCountToSpawn--;
@@ -140,7 +172,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void OnEnemyKilled(Enemy enemy)
+    public void OnEnemyDied(Enemy enemy)
     {
         if(enemy is Boss boss)
         {
@@ -150,6 +182,8 @@ public class EnemySpawner : MonoBehaviour
         {
             CurrentWaveEnemies.Remove(enemy);
         }
+
+        OnEnemyKilled?.Invoke(enemy);
     }
 
     public static Enemy SpawnEnemy(Vector3 spawnPoint, GameObject typeToSpawn, Transform target)

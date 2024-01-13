@@ -9,10 +9,13 @@ public class BasicBoss : Boss
 
     public List<GameObject> EnemyTypesToSpawn = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
+
+    protected override void Init()
     {
+        EnemyName = "Basic Boss";
+        base.Init();
         MinionSpawnTimer = MinionSpawnInterval;
+
     }
 
     // Update is called once per frame
