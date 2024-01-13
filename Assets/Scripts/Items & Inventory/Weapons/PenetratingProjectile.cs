@@ -8,7 +8,7 @@ public class PenetratingProjectile : Projectile
     {
         if (collider.gameObject.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(CalculateDamage(ImpactDamage));
+            //enemy.TakeDamage(CalculateDamage(ImpactDamage));
             PenetrationCount--;
 
             if (PenetrationCount <= 0)
