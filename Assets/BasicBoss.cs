@@ -52,7 +52,7 @@ public class BasicBoss : Boss
         go.transform.position = finalPos;
 
         var enemyComponent = go.GetComponent<Enemy>();
-
+        enemyComponent.onEnemyKilled += EnemySpawner.Instance.OnEnemyDied;
         var movementComponent = go.GetComponent<NavMeshMovement>();
         if (movementComponent != null)
         {

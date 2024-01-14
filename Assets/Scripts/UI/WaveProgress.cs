@@ -18,13 +18,13 @@ public class WaveProgress : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(EnemySpawner != null && Text != null)
+        if(EnemySpawner != null && Text != null && EnemySpawner.CurrentWaveInformation != null)
         {
             Text.text = $"Wave : {EnemySpawner.Wave}" +
                 $"\n" +
                 $"RemainingEnemyCount : {EnemySpawner.WaveRemainingEnemyCountToSpawn}" +
                 $"\n" +
-                $"Elapsed Time This Wave : {EnemySpawner.CurrentWaveInformation.ElapsedTime}";
+                $"Elapsed Time This Wave : {(int)EnemySpawner.CurrentWaveInformation.ElapsedTime}";
         }
     }    
 }
