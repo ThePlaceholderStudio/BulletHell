@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,6 +11,8 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance;
+
     const float enemySpawnDistributionTime = 15; //This will be used to adjust enemy spawn rate. The code will spawn all the enemies of a wave in this amount of seconds.
 
     private List<EnemySpawnPoint> _enemySpawnPoints = new List<EnemySpawnPoint>();
@@ -45,7 +48,8 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        CurrentWaveInformation = new WaveInformation();
+        Instance = this;
+        TotalWaveInformation = new WaveInformation(Instance, 0);
     }
 
     private void TrySetPlayer()
@@ -71,12 +75,22 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
+
+        if(_playerCharacter != null)
+        {
+            StartNewWave();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         TrySetPlayer();
+
+        if(_playerCharacter == null)
+        {
+            return;
+        }
 
         TotalElapsedTime += Time.deltaTime;
         CurrentWaveInformation.ElapsedTime += Time.deltaTime;
@@ -85,12 +99,12 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError($"EnemySpawnPoint count : {_enemySpawnPoints.Count} || PlayerCharacter : {_playerCharacter}");
         }
 
-        if(WaveRemainingEnemyCountToSpawn == 0 && 
+        if(!_waitingWaveToStart && WaveRemainingEnemyCountToSpawn == 0 && 
             CurrentWaveEnemies.Count == 0 && 
             CurrentWaveBosses.Count == 0 &&
             CurrentWaveInformation.ElapsedTime > enemySpawnDistributionTime)
         {
-            StartNewWave();
+            StartCoroutine(EndWave());
         }
         else if(WaveRemainingEnemyCountToSpawn > 0)
         {
@@ -98,31 +112,38 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+
+    private bool _waitingWaveToStart = false;
     private IEnumerator EndWave()
     {
+        _waitingWaveToStart = true;
         OnWaveEnded?.Invoke(CurrentWaveInformation);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
+        StartNewWave();
+        _waitingWaveToStart = false;
     }
 
     public WaveInformation CurrentWaveInformation;
 
+    //TODO HAKAN: This should be in another class. Not in spawner
+    public static WaveInformation TotalWaveInformation;
+
     private void SetNewWaveInformation()
     {
-        Character.OnLevelUp -= CurrentWaveInformation.OnLevelUp;
-        OnEnemyKilled -= CurrentWaveInformation.OnEnemyKilled;
-        CurrentWaveInformation = new WaveInformation();
-        Character.OnLevelUp += CurrentWaveInformation.OnLevelUp;
-        OnEnemyKilled += CurrentWaveInformation.OnEnemyKilled;
+        if(CurrentWaveInformation != null)
+        {
+            TotalWaveInformation.Combine(CurrentWaveInformation);
+            CurrentWaveInformation?.Destroy();
+        }
+        
+        CurrentWaveInformation = new WaveInformation(this, Wave);        
     }
 
     private void StartNewWave()
     {
-
-        StartCoroutine(EndWave());
-        SetNewWaveInformation();
-
         Wave++;
+        SetNewWaveInformation();
 
         CurrentWaveInformation.ElapsedTime = 0f;
         WaveRemainingEnemyCountToSpawn = Wave * (1+((int)Math.Log(_playerCharacter.currentLevel+1, 2))) * 5; //Find a better function for enemy counts

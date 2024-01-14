@@ -15,7 +15,7 @@ public class WaveStatistics : MonoBehaviour
     {
         foreach(var go in gameObject.scene.GetRootGameObjects())
         {
-            if (go.GetComponentInChildren<EnemySpawner>() != null)
+            if (go.GetComponent<EnemySpawner>() != null)
             {
                 var enemySpawner = go.GetComponentInChildren<EnemySpawner>();
                 _spawner = enemySpawner;
@@ -26,22 +26,21 @@ public class WaveStatistics : MonoBehaviour
 
     private void OnWaveEnd(WaveInformation info)
     {
-
         Text.text = info.ToString(); 
 
         Text.enabled = true;
 
         StartCoroutine(WaveEndTick());
-
-        Text.enabled = false;
     }
 
     private IEnumerator WaveEndTick()
     {
-        for(int i = 0; i < 50; i++)
+        for(int i = 0; i < 10; i++)
         {
             yield return new WaitForSeconds(0.5f);
         }
+
+        Text.enabled = false;
     }
 
     // Update is called once per frame
