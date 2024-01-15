@@ -11,6 +11,7 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI statsText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
+    [SerializeField] TextMeshProUGUI itemRarityText;
 
     public event Action<Item> OnButtonClickEvent;
 
@@ -79,6 +80,9 @@ public class ItemSlot : MonoBehaviour
 
                 if (_item != null && statsText != null)
                     statsText.text = sb.ToString();
+
+                if (_item != null && itemRarityText != null)
+                    itemRarityText.text = item.EquipmentRarity.ToString();
 
                 if (_item != null && itemDescriptionText != null)
                     itemDescriptionText.text = item.ItemDescription;
