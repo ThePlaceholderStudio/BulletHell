@@ -168,24 +168,35 @@ public class Weapon : MonoBehaviour
 
         currentAmmo--;
 
-        if (pfProjectile != null)
-        {
-            Transform missileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
-            HomingMissile homingMissile = missileTransform.GetComponent<HomingMissile>();
+        GameObject nearestEnemy = FindNearestEnemy();
 
-            if (homingMissile != null && FindNearestEnemy())
+        if (nearestEnemy != null)
+        {
+
+            if (pfProjectile != null)
             {
-                homingMissile.SetTarget(FindNearestEnemy().transform.position);
-                homingMissile.ProjectilePhysics((transform.forward).normalized, muzzleVelocity);
+                Transform missileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
+                HomingMissile homingMissile = missileTransform.GetComponent<HomingMissile>();
+
+                if (homingMissile != null && FindNearestEnemy())
+                {
+                    homingMissile.SetTarget(FindNearestEnemy().transform.position);
+                    homingMissile.ProjectilePhysics((transform.forward).normalized, muzzleVelocity);
+                }
+                else
+                {
+                    Debug.LogError("No HomingMissile component attached to the missile prefab.");
+                }
             }
             else
             {
-                Debug.LogError("No HomingMissile component attached to the missile prefab.");
+                Debug.LogError("No missile prefab assigned.");
             }
         }
         else
         {
-            Debug.LogError("No missile prefab assigned.");
+            Debug.Log("No enemies detected.");
+            yield break;
         }
     }
 
