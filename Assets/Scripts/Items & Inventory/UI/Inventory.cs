@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Inventory : MonoBehaviour
 {
@@ -29,8 +31,17 @@ public class Inventory : MonoBehaviour
     {
         if (itemsParent != null)
             itemSlots = itemsParent.GetComponentsInChildren<ItemSlot>();
+    }
 
+
+    private void OnEnable()
+    {
         AssignItemToSlots();
+    }
+
+    private void OnDisable()
+    {
+        Shuffle(items);
     }
 
     private void Update()
@@ -39,10 +50,44 @@ public class Inventory : MonoBehaviour
         {
             AssignWeaponsToSlots();
         }
-        else
+    }
+
+    public List<Item> GetRandomItems(List<Item> items)
+    {
+        Random.InitState((int)System.DateTime.Now.Ticks);
+
+        Dictionary<Rarity, int> weights = new Dictionary<Rarity, int>()
+    {
+        { Rarity.Common, 50 },
+        { Rarity.Uncommon, 30 },
+        { Rarity.Rare, 15 },
+        { Rarity.Epic, 4 },
+        { Rarity.Legendary, 1 }
+    };
+        int totalWeight = weights.Values.Sum();
+
+        List<Item> unpickedItems = new List<Item>(items);
+        List<Item> pickedItems = new List<Item>();
+
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            AssignItemToSlots();
+            int randomNumber = Random.Range(0, totalWeight);
+
+            int weightSum = 0;
+            foreach (EquippableItem item in items)
+            {
+                weightSum += weights[item.EquipmentRarity];
+
+                if (weightSum > randomNumber && pickedItems.All(pickedItem => pickedItem.ItemName != item.ItemName))
+                {
+                    unpickedItems.Remove(item);
+                    pickedItems.Add(item);
+                    break;
+                }
+            }
         }
+
+        return pickedItems;
     }
 
     private void AssignWeaponsToSlots()
@@ -61,10 +106,11 @@ public class Inventory : MonoBehaviour
 
     private void AssignItemToSlots()
     {
+        List<Item> pickedItems = GetRandomItems(items).ToList();
         int i = 0;
         for (; i < items.Count && i < itemSlots.Length; i++)
         {
-            itemSlots[i].Item = items[i];
+            itemSlots[i].Item = pickedItems[i];
         }
 
         for (; i < itemSlots.Length; i++)
@@ -79,8 +125,8 @@ public class Inventory : MonoBehaviour
         {
             AssignItemToSlots();
             return true;
-        } 
-        else if(weapons.Remove(item))
+        }
+        else if (weapons.Remove(item))
         {
             AssignWeaponsToSlots();
             return true;
@@ -88,8 +134,17 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool IsFull()
+    public static void Shuffle<T>(List<T> list)
     {
-        return items.Count >= itemSlots.Length;
+        Random.InitState((int)System.DateTime.Now.Ticks);
+
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
     }
 }
