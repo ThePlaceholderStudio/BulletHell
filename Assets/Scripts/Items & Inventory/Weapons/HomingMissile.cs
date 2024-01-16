@@ -6,7 +6,7 @@ public class HomingMissile : Projectile
     private Vector3 targetPosition;
     private bool hasTarget = false;
     private Rigidbody rb;
-    public float moveSpeed = 10;
+    public float moveSpeed = 15;
 
     public float explosionRadius = 5f;
     public float explosionDamage = 10f;
@@ -37,6 +37,7 @@ public class HomingMissile : Projectile
             {
                 // If the target is missing, stop homing
                 hasTarget = false;
+                Destroy(gameObject);
             }
             yield return new WaitForFixedUpdate();
         }
