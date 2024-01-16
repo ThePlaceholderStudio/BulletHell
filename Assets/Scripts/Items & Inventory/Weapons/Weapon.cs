@@ -173,7 +173,7 @@ public class Weapon : MonoBehaviour
             Transform missileTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
             HomingMissile homingMissile = missileTransform.GetComponent<HomingMissile>();
 
-            if (homingMissile != null)
+            if (homingMissile != null && FindNearestEnemy())
             {
                 homingMissile.SetTarget(FindNearestEnemy().transform.position);
                 homingMissile.ProjectilePhysics((transform.forward).normalized, muzzleVelocity);
