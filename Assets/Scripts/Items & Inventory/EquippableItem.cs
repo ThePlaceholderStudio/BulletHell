@@ -9,6 +9,7 @@ public enum WeaponType
     AssaultRifle,
     SniperRifle,
     RocketLauncher,
+    Boomerang,
     None
 }
 

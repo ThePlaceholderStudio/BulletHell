@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
     public int LifeSpan = 10;
     public int ImpactDamage = 5;
 
-    Character character;
+    protected Character character;
     public bool IsFiredFromEnemy = false;
     private void Start()
     {

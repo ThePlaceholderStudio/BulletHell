@@ -69,6 +69,9 @@ public class Weapon : MonoBehaviour
                 case WeaponType.RocketLauncher:
                     StartCoroutine(FireHomingMissile());
                     break;
+                case WeaponType.Boomerang:
+                    StartCoroutine(SpawnBoomerang());
+                    break;
             }
             fireTimer = 0f;
         }
@@ -292,4 +295,42 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private IEnumerator SpawnBoomerang()
+    {
+        if (isReloading)
+            yield break;
+
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.1f); // Add delay before firing
+
+        currentAmmo--;
+
+        if (pfProjectile != null)
+        {
+            Transform boomerangTransform = Instantiate(pfProjectile, transform.position, Quaternion.identity);
+            Boomerang boomerang = boomerangTransform.GetComponent<Boomerang>();
+
+            if (boomerang != null)
+            {
+                boomerang.go = false; //Set To Not Return Yet
+
+                boomerang.locationInFrontOfPlayer = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z) + transform.forward * 10f;
+
+                StartCoroutine(boomerang.Boom());//Now Start The Coroutine
+            }
+            else
+            {
+                Debug.LogError("No Projectile component attached to the bullet prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No bullet prefab assigned.");
+        }
+    }
 }
