@@ -5,11 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelection : MonoBehaviour
 {
+    public static CharacterSelection Instance; 
+
     public Transform CharacterContainer;
 
-    private List<GameObject> characters;
+    public List<GameObject> characters;
 
-    private int selectionIndex = 0;
+    public int selectionIndex = 0;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -20,6 +34,7 @@ public class CharacterSelection : MonoBehaviour
             t.gameObject.SetActive(false);
         }
 
+        CharacterDescription.Instance.ShowTooltip(characters[selectionIndex].GetComponent<Character>());
         characters[selectionIndex].SetActive(true);
     }
 
