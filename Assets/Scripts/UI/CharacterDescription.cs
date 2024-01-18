@@ -22,47 +22,43 @@ public class CharacterDescription : MonoBehaviour
         {
             Destroy(this);
         }
+        weaponIcon.enabled = true;
     }
 
     public void ShowTooltip(Character charactertoShow)
     {
         if (charactertoShow == null)
         {
-            weaponIcon.enabled = false;
             return;
         }
 
-        if (charactertoShow != null && weaponIcon != null)
-        {
-            weaponIcon.sprite = charactertoShow.DefaultWeapon.Icon;
-            weaponIcon.enabled = true;
+        weaponIcon.sprite = charactertoShow.DefaultWeapon.Icon;
 
+        Character character = charactertoShow;
 
-            Character character = charactertoShow;
+        gameObject.SetActive(true);
 
-            gameObject.SetActive(true);
+        nameText.text = character.name;
 
-            nameText.text = character.name;
+        sb.Length = 0;
 
-            sb.Length = 0;
+        AddStatText(character.MaxHp.Value, " MaxHp");
+        AddStatText(character.LifeRegen.Value, " Life Regen");
+        AddStatText(character.Armor.Value, " Armor");
+        AddStatText(character.DashCoolDown.Value, " Dash Cool-Down");
+        AddStatText(character.DashRange.Value, " Dash Range");
+        AddStatText(character.MoveSpeed.Value, " Move Speed");
+        AddStatText(character.Damage.Value, " Damage");
+        AddStatText(character.FireRate.Value, " Fire Rate");
+        AddStatText(character.ReloadSpeed.Value, " Reload Speed");
+        AddStatText(character.CriticalChance.Value, " Critical Chance");
+        AddStatText(character.CriticalDamage.Value, " Critical Damage");
+        AddStatText(character.PickUpRadius.Value, " Pick Up Radius");
+        AddStatText(character.XPGain.Value, " XP Gain");
 
-            AddStatText(character.MaxHp.Value, " MaxHp");
-            AddStatText(character.LifeRegen.Value, " Life Regen");
-            AddStatText(character.Armor.Value, " Armor");
-            AddStatText(character.DashCoolDown.Value, " Dash Cool-Down");
-            AddStatText(character.DashRange.Value, " Dash Range");
-            AddStatText(character.MoveSpeed.Value, " Move Speed");
-            AddStatText(character.Damage.Value, " Damage");
-            AddStatText(character.FireRate.Value, " Fire Rate");
-            AddStatText(character.ReloadSpeed.Value, " Reload Speed");
-            AddStatText(character.CriticalChance.Value, " Critical Chance");
-            AddStatText(character.CriticalDamage.Value, " Critical Damage");
-            AddStatText(character.PickUpRadius.Value, " Pick Up Radius");
-            AddStatText(character.XPGain.Value, " XP Gain");
-
-            statsText.text = sb.ToString();
-        }
+        statsText.text = sb.ToString();
     }
+
 
     private void AddStatText(float statBonus, string statName)
     {

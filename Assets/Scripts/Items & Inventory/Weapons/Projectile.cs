@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.TryGetComponent(out Enemy enemy))
+        if (!IsFiredFromEnemy && collider.gameObject.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(CalculatePlayerDamage());
             Destroy(gameObject);
