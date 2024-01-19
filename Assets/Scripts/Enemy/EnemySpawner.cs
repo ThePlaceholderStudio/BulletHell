@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using Unity.Mathematics;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 
@@ -92,6 +94,17 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        UpdateWave();
+    }
+
+
+    private void UpdateWave()
+    {
+        if (SceneManager.GetActiveScene() != gameObject.scene)
+        {
+            return;
+        }
+
         TotalElapsedTime += Time.deltaTime;
         CurrentWaveInformation.ElapsedTime += Time.deltaTime;
         if (_enemySpawnPoints.Count <= 0 || _playerCharacter == null)
@@ -99,19 +112,18 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError($"EnemySpawnPoint count : {_enemySpawnPoints.Count} || PlayerCharacter : {_playerCharacter}");
         }
 
-        if(!_waitingWaveToStart && WaveRemainingEnemyCountToSpawn == 0 && 
-            CurrentWaveEnemies.Count == 0 && 
+        if (!_waitingWaveToStart && WaveRemainingEnemyCountToSpawn == 0 &&
+            CurrentWaveEnemies.Count == 0 &&
             CurrentWaveBosses.Count == 0 &&
             CurrentWaveInformation.ElapsedTime > enemySpawnDistributionTime)
         {
             StartCoroutine(EndWave());
         }
-        else if(WaveRemainingEnemyCountToSpawn > 0)
+        else if (WaveRemainingEnemyCountToSpawn > 0)
         {
             TrySpawningEnemy();
         }
     }
-
 
     private bool _waitingWaveToStart = false;
     private IEnumerator EndWave()
