@@ -1,9 +1,9 @@
 using System.Collections;
+using System.Transactions;
 using UnityEngine;
 
 public class HomingMissile : Projectile
 {
-    private Vector3 targetPosition;
     private bool hasTarget = false;
     private Rigidbody rb;
     public float moveSpeed = 15;
@@ -55,56 +55,60 @@ public class HomingMissile : Projectile
     //    }
     //}
 
-    //private IEnumerator Homing()
-    //{
-    //    yield return new WaitForSeconds(homingDelay);
-
-    //    while (true)
-    //    {
-    //        if (hasTarget && targetPosition != null)
-    //        {
-    //            Vector3 targetDirection = (targetPosition - transform.position).normalized;
-    //            Vector3 newVelocity = new Vector3(targetDirection.x, 0, targetDirection.z) * moveSpeed;
-
-    //            // Gradually change the missile's velocity over time
-    //            rb.velocity = Vector3.Lerp(rb.velocity, newVelocity, Time.fixedDeltaTime);
-
-    //            // Rotate the missile towards the target
-    //            transform.rotation = Quaternion.LookRotation(targetDirection);
-    //        }
-    //        else if (targetPosition == null)
-    //        {
-    //            // If the target is missing, stop homing
-    //            hasTarget = false;
-    //            Destroy(gameObject);
-    //        }
-    //        yield return new WaitForFixedUpdate();
-    //    }
-    //}
-
     private IEnumerator Homing()
     {
         yield return new WaitForSeconds(homingDelay);
-        // Target Phase
-        if (hasTarget)
+        float currentVelocityMagnitude = rb.velocity.magnitude;
+        while (true)
         {
-            Vector3 relativePosition = target.position - transform.position;
-            targetRotation = Quaternion.LookRotation(relativePosition);
-            rotating = true;
-            rotationTime = 0;
-        }
-
-        // Rotation Phase
-        if (rotating)
-        {
-            rotationTime += Time.deltaTime * speed;
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationTime);
-            if (rotationTime > 1)
+            if (hasTarget && target.position != null)
             {
-                rotating = false;
+                Vector3 targetDirection = (target.position - transform.position).normalized;
+                //Vector3 newVelocity = /*new Vector3(targetDirection.x, 0, targetDirection.z)*/Vector3.forward * moveSpeed;
+
+                // Gradually change the missile's velocity over time
+                //rb.velocity = Vector3.Lerp(rb.velocity, newVelocity, Time.fixedDeltaTime);
+                currentVelocityMagnitude = Mathf.Lerp(currentVelocityMagnitude, moveSpeed * 2f, Time.fixedDeltaTime);
+                float distanceBasedRotationMultiplier = Mathf.Max(1, (225 * transform.localScale.magnitude) / (target.position - transform.position).sqrMagnitude);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetDirection), Time.fixedDeltaTime * distanceBasedRotationMultiplier);
+
+                rb.velocity = currentVelocityMagnitude * transform.forward;
+
+                // Rotate the missile towards the target
             }
+            else if (target.position == null)
+            {
+                // If the target is missing, stop homing
+                hasTarget = false;
+                Destroy(gameObject);
+            }
+            yield return new WaitForFixedUpdate();
         }
     }
+
+    //private IEnumerator Homing()
+    //{
+    //    yield return new WaitForSeconds(homingDelay);
+    //    // Target Phase
+    //    if (hasTarget)
+    //    {
+    //        Vector3 relativePosition = target.position - transform.position;
+    //        targetRotation = Quaternion.LookRotation(relativePosition);
+    //        rotating = true;
+    //        rotationTime = 0;
+    //    }
+
+    //    // Rotation Phase
+    //    if (rotating)
+    //    {
+    //        rotationTime += Time.deltaTime * speed;
+    //        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationTime);
+    //        if (rotationTime > 1)
+    //        {
+    //            rotating = false;
+    //        }
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider collider)
     {
