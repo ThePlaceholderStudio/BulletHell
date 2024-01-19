@@ -11,9 +11,12 @@ public class NavMeshMovement : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
+    [SerializeField] int speed;
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.speed = speed;
     }
 
     private void Update()

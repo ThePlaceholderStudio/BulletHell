@@ -30,32 +30,11 @@ public class Character : MonoBehaviour
     public CharacterStat PickUpRadius;
     public CharacterStat XPGain;
 
-    //ToDo Weapon Class
-    public CharacterStat Range;
-    public CharacterStat ReloadTime;
-    public CharacterStat MagazineSize;
-    public CharacterStat RPM;
-    public CharacterStat ProjectileCount;
-    public CharacterStat TargetPenetration;
-    public CharacterStat ConicalAngle;
-
     private Inventory inventory;
     private EquipmentPanel equipmentPanel;
     private StatPanel statPanel;
     private WeaponPanel weaponPanel;
 
-    //private void Awake()
-    //{
-    //    inventory = GameManager.Instance.inventory;
-    //    equipmentPanel = GameManager.Instance.equipmentPanel;
-    //    statPanel = GameManager.Instance.statPanel;
-    //    weaponPanel = GameManager.Instance.weaponPanel;
-
-    //    statPanel.SetStats(MaxHp, LifeRegen, Armor, DashCoolDown, DashRange, MoveSpeed, Damage, FireRate, ReloadSpeed, CriticalChance, CriticalDamage, PickUpRadius, XPGain);
-    //    statPanel.UpdateStatValues();
-
-    //    inventory.OnItemEquipEvent += EquipFromInventory;
-    //}
 
     private void Start()
     {

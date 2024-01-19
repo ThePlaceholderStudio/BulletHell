@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -82,7 +83,7 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         Debug.Log("Reloading...");
 
-        yield return new WaitForSeconds(reloadTime * character.ReloadTime.Value);
+        yield return new WaitForSeconds(reloadTime * character.ReloadSpeed.Value);
 
         currentAmmo = magazineSize;
         isReloading = false;

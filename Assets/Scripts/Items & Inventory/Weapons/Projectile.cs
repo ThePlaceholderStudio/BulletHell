@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public int LifeSpan = 10;
-    public int ImpactDamage = 5;
+    public float ImpactDamage = 5;
 
     protected Character character;
     public bool IsFiredFromEnemy = false;
@@ -20,6 +20,15 @@ public class Projectile : MonoBehaviour
         transform.eulerAngles = shootDir;
         Destroy(gameObject, LifeSpan);
     }
+
+    //public void ProjectilePhysics(Vector3 shootDir, int velocity)
+    //{
+    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
+    //    rigidbody.AddForce(shootDir * velocity, ForceMode.VelocityChange);
+
+    //    transform.LookAt(transform.position + rigidbody.velocity);
+    //    Destroy(gameObject, LifeSpan);
+    //}
 
     private void OnTriggerEnter(Collider collider)
     {

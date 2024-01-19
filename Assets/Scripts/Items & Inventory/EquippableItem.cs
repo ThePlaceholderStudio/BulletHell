@@ -183,27 +183,5 @@ public class EquippableItem : Item
             c.XPGain.AddModifier(new StatModifier(XPGainPercentBonus, StatModType.PercentMult, this));
         #endregion ItemStatsPercentage
 
-        #region WeaponStats
-        if (RangePercentBonus != 0)
-            c.Range.AddModifier(new StatModifier(RangePercentBonus, StatModType.PercentMult, this));
-
-        if (ReloadTimePercentBonus != 0)
-            c.ReloadTime.AddModifier(new StatModifier(ReloadTimePercentBonus, StatModType.PercentMult, this));
-
-        if (MagazineBonus != 0)
-            c.MagazineSize.AddModifier(new StatModifier(MagazineBonus, StatModType.PercentMult, this));
-
-        if (RPMPercentBonus != 0)
-            c.RPM.AddModifier(new StatModifier(RPMPercentBonus, StatModType.PercentMult, this));
-
-        if (ProjecticleCountBonus != 0)
-            c.ProjectileCount.AddModifier(new StatModifier(ProjecticleCountBonus, StatModType.PercentMult, this));
-
-        if (TargetPenetrationBonus != 0)
-            c.TargetPenetration.AddModifier(new StatModifier(TargetPenetrationBonus, StatModType.PercentMult, this));
-
-        if (ConicalAnglePercentBonus != 0)
-            c.ConicalAngle.AddModifier(new StatModifier(ConicalAnglePercentBonus, StatModType.PercentMult, this));
-        #endregion WeaponStats
     }
 }
