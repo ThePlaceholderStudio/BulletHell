@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(shootDir * velocity, ForceMode.VelocityChange);
 
-        transform.eulerAngles = shootDir;
+        transform.rotation = Quaternion.LookRotation(shootDir, Vector3.up);
         Destroy(gameObject, LifeSpan);
     }
 
