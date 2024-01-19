@@ -21,15 +21,6 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, LifeSpan);
     }
 
-    //public void ProjectilePhysics(Vector3 shootDir, int velocity)
-    //{
-    //    Rigidbody rigidbody = GetComponent<Rigidbody>();
-    //    rigidbody.AddForce(shootDir * velocity, ForceMode.VelocityChange);
-
-    //    transform.LookAt(transform.position + rigidbody.velocity);
-    //    Destroy(gameObject, LifeSpan);
-    //}
-
     private void OnTriggerEnter(Collider collider)
     {
         if (!IsFiredFromEnemy && collider.gameObject.TryGetComponent(out Enemy enemy))

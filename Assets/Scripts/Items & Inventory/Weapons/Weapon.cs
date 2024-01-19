@@ -184,7 +184,7 @@ public class Weapon : MonoBehaviour
 
                 if (homingMissile != null && FindNearestEnemy())
                 {
-                    homingMissile.SetTarget(FindNearestEnemy().transform.position);
+                    homingMissile.SetTarget(FindNearestEnemy().transform);
                     homingMissile.ProjectilePhysics((transform.forward).normalized, muzzleVelocity);
                 }
                 else
