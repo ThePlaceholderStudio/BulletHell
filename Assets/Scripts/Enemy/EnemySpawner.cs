@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using Unity.Mathematics;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
