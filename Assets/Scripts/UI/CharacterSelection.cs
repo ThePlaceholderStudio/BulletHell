@@ -34,7 +34,7 @@ public class CharacterSelection : MonoBehaviour
             t.gameObject.SetActive(false);
         }
 
-        CharacterDescription.Instance.ShowTooltip(characters[selectionIndex].GetComponent<Character>());
+        CharacterDescription.Instance.ShowTooltip(characters[selectionIndex].GetComponent<Player>());
         characters[selectionIndex].SetActive(true);
     }
 

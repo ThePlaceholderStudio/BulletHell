@@ -7,7 +7,7 @@ public class StatPanel : MonoBehaviour
     [SerializeField] StatDisplay[] statDisplays;
     [SerializeField] string[] statNames;
     [SerializeField] Text characterLevelText;
-    Character character;
+    Player character;
 
     private CharacterStat[] stats;
 
@@ -62,7 +62,7 @@ public class StatPanel : MonoBehaviour
 
     private void UpdateLevelText()
     {
-        character = GameManager.Instance.player.GetComponent<Character>();
+        character = GameManager.Instance.player.GetComponent<Player>();
         characterLevelText.text = character.currentLevel.ToString();
     }
 }

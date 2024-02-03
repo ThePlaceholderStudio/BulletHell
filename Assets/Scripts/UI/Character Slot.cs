@@ -10,12 +10,12 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI statsText;
 
-    public event Action<Character> OnButtonClickEvent;
+    public event Action<Player> OnButtonClickEvent;
 
     private StringBuilder sb = new StringBuilder();
 
-    private Character _character;
-    public Character Character
+    private Player _character;
+    public Player Character
     {
         get { return _character; }
         set
@@ -25,7 +25,7 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
             if (_character != null)
             {
 
-                Character character = _character;
+                Player character = _character;
 
                 gameObject.SetActive(true);
 
@@ -92,7 +92,7 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
             CharacterSelection.Instance.characters[CharacterSelection.Instance.selectionIndex].SetActive(false);
             CharacterSelection.Instance.selectionIndex = transform.GetSiblingIndex();
         }
-        _character = CharacterSelection.Instance.characters[transform.GetSiblingIndex()].GetComponent<Character>();
+        _character = CharacterSelection.Instance.characters[transform.GetSiblingIndex()].GetComponent<Player>();
         CharacterDescription.Instance.ShowTooltip(Character);
     }
 }

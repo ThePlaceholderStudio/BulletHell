@@ -8,11 +8,11 @@ public class HealthComponent : MonoBehaviour
 
     public static event Action OnPlayerDeath;
 
-    Character character;
+    Player character;
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        character = GetComponent<Player>();
         maxHealth = character.MaxHp.Value;
     }
 

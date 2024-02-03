@@ -97,7 +97,7 @@ public class EquippableItem : Item
     public int ConicalAnglePercentBonus;
 
 
-    public void Equip(Character c)
+    public void Equip(Player c)
     {
         OnItemEquippedEvent?.Invoke(this);
 

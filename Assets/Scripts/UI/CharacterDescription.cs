@@ -25,7 +25,7 @@ public class CharacterDescription : MonoBehaviour
         weaponIcon.enabled = true;
     }
 
-    public void ShowTooltip(Character charactertoShow)
+    public void ShowTooltip(Player charactertoShow)
     {
         if (charactertoShow == null)
         {
@@ -34,7 +34,7 @@ public class CharacterDescription : MonoBehaviour
 
         weaponIcon.sprite = charactertoShow.DefaultWeapon.Icon;
 
-        Character character = charactertoShow;
+        Player character = charactertoShow;
 
         gameObject.SetActive(true);
 
