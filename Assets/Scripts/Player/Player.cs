@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public ActivationSystem UtilitySystem;
     private int equippedSlotIndex;
 
+    public Character character;
     public EquippableItem DefaultWeapon;
 
     public CharacterStat MaxHp;
@@ -36,7 +37,6 @@ public class Player : MonoBehaviour
     private StatPanel statPanel;
     private WeaponPanel weaponPanel;
 
-    public Character character;
 
     private void Awake()
     {
@@ -63,9 +63,13 @@ public class Player : MonoBehaviour
 
     protected virtual void Init()
     {
-        // Iterate through attributes
         foreach (var attribute in character.attributes)
         {
+            if (attribute is ArsenalAttribute arsenalAttr)
+            {
+                DefaultWeapon = (EquippableItem)arsenalAttr.obj;
+            }
+
             if (attribute is VitalityAttribute vitalityAttr)
             {
                 MaxHp.BaseValue += vitalityAttr.MaxHp;

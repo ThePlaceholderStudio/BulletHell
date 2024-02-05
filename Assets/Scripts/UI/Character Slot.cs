@@ -70,9 +70,14 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         CharacterDescription.Instance.ShowTooltip(Character);
+    }
+
+    private void Start()
+    {
+
     }
 
     protected virtual void OnValidate()
