@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Player : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class Player : MonoBehaviour
     private StatPanel statPanel;
     private WeaponPanel weaponPanel;
 
+    public Character character;
+
+    private void Awake()
+    {
+        Init();
+    }
 
     private void Start()
     {
@@ -52,6 +59,42 @@ public class Player : MonoBehaviour
         UtilitySystem = UtilitySystem.GetComponent<ActivationSystem>();
 
         Equip(DefaultWeapon);
+    }
+
+    protected virtual void Init()
+    {
+        // Iterate through attributes
+        foreach (var attribute in character.attributes)
+        {
+            if (attribute is VitalityAttribute vitalityAttr)
+            {
+                MaxHp.BaseValue += vitalityAttr.MaxHp;
+                LifeRegen.BaseValue += vitalityAttr.LifeRegen;
+                Armor.BaseValue += vitalityAttr.Armor;
+            }
+
+            if (attribute is MovementAttribute movementAttr)
+            {
+                DashCoolDown.BaseValue += movementAttr.DashCoolDown;
+                DashRange.BaseValue += movementAttr.DashRange;
+                MoveSpeed.BaseValue += movementAttr.MoveSpeed;
+            }
+
+            if (attribute is CombatAttribute combatAttr)
+            {
+                Damage.BaseValue += combatAttr.Damage;
+                FireRate.BaseValue += combatAttr.FireRate;
+                ReloadSpeed.BaseValue += combatAttr.ReloadSpeed;
+                CriticalChance.BaseValue += combatAttr.CriticalChance;
+                CriticalDamage.BaseValue += combatAttr.CriticalDamage;
+            }
+
+            if (attribute is UtilityAttribute utilityAttr)
+            {
+                PickUpRadius.BaseValue += utilityAttr.PickUpRadius;
+                XPGain.BaseValue += utilityAttr.XPGain;
+            }
+        }
     }
 
     private void EquipFromInventory(Item item)

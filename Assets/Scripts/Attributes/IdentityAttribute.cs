@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using static Unity.VisualScripting.Member;
+#endif
 
-public class IdentityAttribute : MonoBehaviour
+public class IdentityAttribute : Attribute
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject source;
 
-    // Update is called once per frame
-    void Update()
+#if UNITY_EDITOR
+    public override void DoLayout()
     {
-        
+        source = EditorGUILayout.ObjectField("Prefab", source, typeof(GameObject), false) as GameObject;
     }
+#endif
 }

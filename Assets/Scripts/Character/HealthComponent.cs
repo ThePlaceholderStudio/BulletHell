@@ -14,11 +14,12 @@ public class HealthComponent : MonoBehaviour
     {
         character = GetComponent<Player>();
         maxHealth = character.MaxHp.Value;
+        currentHealth = maxHealth;
     }
 
     void Start()
     {
-        currentHealth = maxHealth;
+        
     }
 
     public void TakeDamage(float amount)
