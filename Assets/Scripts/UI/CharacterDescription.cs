@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
+using UnityEngine.TextCore.Text;
 
 public class CharacterDescription : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CharacterDescription : MonoBehaviour
         {
             Destroy(this);
         }
-        //weaponIcon.enabled = true;
+        weaponIcon.enabled = true;
     }
 
     public void ShowTooltip(Player charactertoShow)

@@ -72,12 +72,13 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
 
     private void Awake()
     {
-        CharacterDescription.Instance.ShowTooltip(Character);
     }
 
     private void Start()
     {
-
+        Character = CharacterSelection.Instance.characters[0].GetComponent<Player>();
+        Character.gameObject.SetActive(true);
+        CharacterDescription.Instance.ShowTooltip(Character);
     }
 
     protected virtual void OnValidate()
