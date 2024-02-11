@@ -10,13 +10,13 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<Item> weapons;
     [SerializeField] Transform itemsParent;
     [SerializeField] ItemSlot[] itemSlots;
-    private Character character;
+    private Player character;
 
     public event Action<Item> OnItemEquipEvent;
 
     private void Awake()
     {
-        character = GameManager.Instance.player.GetComponent<Character>();
+        character = GameManager.Instance.player.GetComponent<Player>();
     }
 
     private void Start()

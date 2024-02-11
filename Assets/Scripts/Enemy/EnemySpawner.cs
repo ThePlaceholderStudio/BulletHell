@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     const float enemySpawnDistributionTime = 15; //This will be used to adjust enemy spawn rate. The code will spawn all the enemies of a wave in this amount of seconds.
 
     private List<EnemySpawnPoint> _enemySpawnPoints = new List<EnemySpawnPoint>();
-    private Character _playerCharacter;
+    private Player _playerCharacter;
 
     private List<Enemy> CurrentWaveEnemies = new List<Enemy>();
     private List<Boss> CurrentWaveBosses = new List<Boss>();
@@ -62,14 +62,14 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (var go in gameObject.scene.GetRootGameObjects())
         {
-            var characterComponent = go.GetComponent<Character>();
+            var characterComponent = go.GetComponent<Player>();
             if (characterComponent != null)
             {
                 _playerCharacter = characterComponent;
             }
             else
             {
-                characterComponent = go.GetComponentInChildren<Character>();
+                characterComponent = go.GetComponentInChildren<Player>();
                 if (characterComponent != null)
                 {
                     _playerCharacter = characterComponent;

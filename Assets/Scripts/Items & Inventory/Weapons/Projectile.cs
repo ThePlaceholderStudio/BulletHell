@@ -5,11 +5,11 @@ public class Projectile : MonoBehaviour
     public int LifeSpan = 10;
     public float ImpactDamage = 5;
 
-    protected Character character;
+    protected Player character;
     public bool IsFiredFromEnemy = false;
     private void Start()
     {
-        character = FindObjectOfType<Character>();
+        character = FindObjectOfType<Player>();
     }
 
     public void ProjectilePhysics(Vector3 shootDir, int velocity)
@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
             enemy.TakeDamage(CalculatePlayerDamage());
             Destroy(gameObject);
         }
-        else if(IsFiredFromEnemy && collider.gameObject.TryGetComponent(out Character player))
+        else if(IsFiredFromEnemy && collider.gameObject.TryGetComponent(out Player player))
         {
             float damage = CalculateEnemyDamage();
             player.GetComponent<HealthComponent>().TakeDamage(damage);
