@@ -32,13 +32,13 @@ public class PanelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.OnLevelUp += ToggleTraitsPanel;
+        Character.OnLevelUp += ToggleTraitsPanel;
         HealthComponent.OnPlayerDeath += ToggleGameSummary;
     }
 
     private void OnDisable()
     {
-        Player.OnLevelUp -= ToggleTraitsPanel;
+        Character.OnLevelUp -= ToggleTraitsPanel;
         HealthComponent.OnPlayerDeath -= ToggleGameSummary;
     }
 

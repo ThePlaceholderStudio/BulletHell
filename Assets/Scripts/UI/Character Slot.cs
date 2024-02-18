@@ -10,12 +10,12 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI statsText;
 
-    public event Action<Player> OnButtonClickEvent;
+    public event Action<Character> OnButtonClickEvent;
 
     private StringBuilder sb = new StringBuilder();
 
-    private Player _character;
-    public Player Character
+    private Character _character;
+    public Character Character
     {
         get { return _character; }
         set
@@ -25,7 +25,7 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
             if (_character != null)
             {
 
-                Player character = _character;
+                Character character = _character;
 
                 gameObject.SetActive(true);
 
@@ -70,14 +70,8 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
         }
     }
 
-    private void Awake()
-    {
-    }
-
     private void Start()
     {
-        Character = CharacterSelection.Instance.characters[0].GetComponent<Player>();
-        Character.gameObject.SetActive(true);
         CharacterDescription.Instance.ShowTooltip(Character);
     }
 
@@ -98,7 +92,7 @@ public class CharacterSlot : MonoBehaviour , IPointerEnterHandler
             CharacterSelection.Instance.characters[CharacterSelection.Instance.selectionIndex].SetActive(false);
             CharacterSelection.Instance.selectionIndex = transform.GetSiblingIndex();
         }
-        _character = CharacterSelection.Instance.characters[transform.GetSiblingIndex()].GetComponent<Player>();
+        _character = CharacterSelection.Instance.characters[transform.GetSiblingIndex()].GetComponent<Character>();
         CharacterDescription.Instance.ShowTooltip(Character);
     }
 }

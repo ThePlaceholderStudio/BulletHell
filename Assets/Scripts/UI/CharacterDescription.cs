@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
-using UnityEngine.TextCore.Text;
 
 public class CharacterDescription : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class CharacterDescription : MonoBehaviour
         weaponIcon.enabled = true;
     }
 
-    public void ShowTooltip(Player charactertoShow)
+    public void ShowTooltip(Character charactertoShow)
     {
         if (charactertoShow == null)
         {
@@ -35,7 +34,7 @@ public class CharacterDescription : MonoBehaviour
 
         weaponIcon.sprite = charactertoShow.DefaultWeapon.Icon;
 
-        Player character = charactertoShow;
+        Character character = charactertoShow;
 
         gameObject.SetActive(true);
 

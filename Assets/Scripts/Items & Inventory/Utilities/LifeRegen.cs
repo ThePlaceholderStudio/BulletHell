@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LifeRegen : MonoBehaviour
 {
-    private Player character;
+    private Character character;
     private HealthComponent healthComponent;
 
     private void Awake()
     {
-        character = GameManager.Instance.player.GetComponent<Player>();
+        character = GameManager.Instance.player.GetComponent<Character>();
     }
 
     void Start()

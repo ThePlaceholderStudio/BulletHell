@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Magnet : MonoBehaviour
 {
-    public Player character;
+    public Character character;
 
     private void Update()
     {
