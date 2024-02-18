@@ -4,11 +4,11 @@ public class ExperienceBar : FillStatusBar
 {
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI experienceText;
-    public Player character;
+    public Character character;
 
     private void Start()
     {
-        character = GameManager.Instance.player.GetComponent<Player>();
+        character = GameManager.Instance.player.GetComponent<Character>();
     }
 
     void Update()

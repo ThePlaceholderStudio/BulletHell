@@ -24,11 +24,11 @@ public class Weapon : MonoBehaviour
 
     private float fireTimer = 0.0f;
 
-    private Player character;
+    private Character character;
 
     private void Awake()
     {
-        character = GameManager.Instance.player.GetComponent<Player>();
+        character = GameManager.Instance.player.GetComponent<Character>();
     }
 
     private void Start()

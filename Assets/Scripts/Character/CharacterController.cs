@@ -11,7 +11,7 @@ public class CharacterController : CharacterAimController, ICharacterController
 
     Rigidbody rb;
 
-    Player character;
+    Character character;
 
     [Header("Dash Variables")]
     public Transform orientation;
@@ -51,7 +51,7 @@ public class CharacterController : CharacterAimController, ICharacterController
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        character = GetComponent<Player>();
+        character = GetComponent<Character>();
     }
 
     private void FixedUpdate()

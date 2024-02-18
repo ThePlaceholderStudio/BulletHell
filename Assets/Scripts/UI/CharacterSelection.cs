@@ -18,12 +18,6 @@ public class CharacterSelection : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            characters = new List<GameObject>();
-            foreach (Transform t in CharacterContainer.transform)
-            {
-                characters.Add(t.gameObject);
-                t.gameObject.SetActive(false);
-            }
         }
         else
         {
@@ -33,6 +27,15 @@ public class CharacterSelection : MonoBehaviour
 
     private void Start()
     {
+        characters = new List<GameObject>();
+        foreach (Transform t in CharacterContainer.transform)
+        {
+            characters.Add(t.gameObject);
+            t.gameObject.SetActive(false);
+        }
+
+        CharacterDescription.Instance.ShowTooltip(characters[selectionIndex].GetComponent<Character>());
+        characters[selectionIndex].SetActive(true);
     }
 
     public void Select(int index)

@@ -14,11 +14,11 @@ public class Enemy : MonoBehaviour
     public float EnemyDamage = 10;
 
     public GameObject pfXP;
-    protected Player character;
+    protected Character character;
 
     private void Awake()
     {
-        character = GameManager.Instance.player.GetComponent<Player>();
+        character = GameManager.Instance.player.GetComponent<Character>();
 
         Init();
     }
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        var player = collision.gameObject.GetComponent<Player>();
+        var player = collision.gameObject.GetComponent<Character>();
         if (player != null)
             player.GetComponent<HealthComponent>().TakeDamage(EnemyDamage - character.Armor.Value);
         Debug.Log($"Damage received : {EnemyDamage - character.Armor.Value}");

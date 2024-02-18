@@ -17,7 +17,7 @@ public class WaveInformation
         _spawner = spawner;
         Wave = wave;
         ExperienceManager.Instance.OnExperienceChange += ExperienceGained;
-        Player.OnLevelUp += OnLevelUp;
+        Character.OnLevelUp += OnLevelUp;
         _spawner.OnEnemyKilled += OnEnemyKilled;
     }
 
@@ -34,7 +34,7 @@ public class WaveInformation
     public void Destroy()
     {
         ExperienceManager.Instance.OnExperienceChange -= ExperienceGained;
-        Player.OnLevelUp -= OnLevelUp;
+        Character.OnLevelUp -= OnLevelUp;
         _spawner.OnEnemyKilled -= OnEnemyKilled;
     }
 
